@@ -8,6 +8,7 @@ export default defineConfig({
   build: {
     outDir: './docs'
   },
+  baseUrl: 'https://amice13.github.io/react/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
