@@ -136,7 +136,7 @@ function Home () {
             return (
               <Col key={report.id}>
                 <CustomReportCard
-                  date={report.fields.Date[0]}
+                  date={report.fields.Date}
                   description={report.fields.Name[0]}
                   url="https://google.com"
                 />
