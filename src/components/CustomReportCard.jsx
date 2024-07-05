@@ -16,7 +16,7 @@ function CustomHeader ({ date, description, url }) {
       </div>
       <div className="small py-3 ps-2 report-text">{ description }</div>
       <div className="text-end small fw-light-bolder small">
-        <a className="more-link dark-gray" href={url}>
+        <a className="more-link text-orange4-700" href={url}>
           View report <i className="bi bi-arrow-right mx-2 font-weight-bold"></i>
         </a>
       </div>

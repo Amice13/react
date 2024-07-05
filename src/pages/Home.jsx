@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Table from 'react-bootstrap/Table'
+import HomeAction from '@/components/HomeAction'
 import CustomScorecard from '@/components/CustomScorecard'
 import CustomHeader from '@/components/CustomHeader'
 import CustomReportCard from '@/components/CustomReportCard'
@@ -16,7 +17,7 @@ function Home () {
       <Container fluid>
         <Row className="py-2">
           <Col>
-            <div className="text-end gray my-2">
+            <div className="text-end fw-600 gray my-2">
               See all
               <i className="bi bi-arrow-right mx-2 font-weight-bold"></i>
             </div>
@@ -81,9 +82,9 @@ function Home () {
               <Table responsive className="radiant-table mt-4">
                 <thead>
                   <tr>
-                    <th width="30%">Matter name</th>
-                    <th>Short description</th>
-                    <th width="10%">Age</th>
+                    <th className="bg-primary fw-bold py-3" width="30%">Matter name</th>
+                    <th className="bg-primary fw-bold py-3">Short description</th>
+                    <th className="bg-primary fw-bold py-3" width="10%">Age</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -117,38 +118,10 @@ function Home () {
                 <h4 className="flex-grow-1">Governance Actions</h4>
               </div>
               <div className="py-3">
-                <div className="d-flex align-center py-2 small">
-                  <div>
-                    <i className="bi bi-info-circle light-orange secondary-orange"></i>
-                  </div>
-                  <div className="ps-3 fw-light-bolder">
-                    Dora contract position to be discussed
-                  </div>
-                </div>
-                <div className="d-flex align-center py-2 small">
-                  <div>
-                    <i className="bi bi-info-circle light-orange secondary-orange"></i>
-                  </div>
-                  <div className="ps-3 fw-light-bolder">
-                    Dora contract position to be discussed
-                  </div>
-                </div>
-                <div className="d-flex align-center py-2 small">
-                  <div>
-                    <i className="bi bi-info-circle light-orange secondary-orange"></i>
-                  </div>
-                  <div className="ps-3 fw-light-bolder">
-                    Dora contract position to be discussed
-                  </div>
-                </div>
-                <div className="d-flex align-center py-2 small">
-                  <div>
-                    <i className="bi bi-info-circle light-orange secondary-orange"></i>
-                  </div>
-                  <div className="ps-3 fw-light-bolder">
-                    Dora contract position to be discussed
-                  </div>
-                </div>
+                <HomeAction name="Dora contract position to be discussed" />
+                <HomeAction name="Dora contract position to be discussed" />
+                <HomeAction name="Dora contract position to be discussed" />
+                <HomeAction name="Dora contract position to be discussed" />
               </div>
             </div>
           </Col>

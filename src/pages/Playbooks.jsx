@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -7,190 +6,135 @@ import Table from 'react-bootstrap/Table'
 import CustomScorecard from '@/components/CustomScorecard'
 import CustomHeader from '@/components/CustomHeader'
 import CustomReportCard from '@/components/CustomReportCard'
+import Button from 'react-bootstrap/Button'
 
 function Home () {
-  const [key, setKey] = useState('home')
 
   return (
     <>
       <Container fluid>
-        <Row className="py-2">
+        <Row className="py-2 px-3">
           <Col>
-            <div className="text-end gray my-2">
-              See all
-              <i className="bi bi-arrow-right mx-2 font-weight-bold"></i>
+            <div className="custom-selector">
+              <div className="active">Intake</div>
+              <div>Open</div>
+              <div>Closed</div>
             </div>
           </Col>
-        </Row>
-        <Row>
-          <Col>
-            <CustomScorecard
-              name="New matters"
-              value="229"
-              indicator="up"
-              type="success"
-              percent="30%"
-              period="Last 30 days"
-            />
+          <Col className="col-3">
+            <div className="input-group">
+              <input
+                type="text"
+                className="form-control border-end-0"
+                placeholder="Search"
+                aria-label="from"
+                aria-describedby="from"
+              />
+              <span className="input-group-text bg-transparent"><i className="bi bi-search"></i></span>
+            </div>
           </Col>
-          <Col>
-            <CustomScorecard
-              name="Average turnaround time"
-              value="3.5 hours"
-              indicator="up"
-              type="danger"
-              percent="20%"
-              period="Last 30 days"
-            />
+          <Col className="col-2">
+            <div className="custom-select">
+              <div className="input-label">Deal type</div>
+              <div className="input-group">
+                <select className="form-control" id="inputGroupSelect">
+                  <option defaultValue>All</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              <span className="input-group-text bg-transparent"><i className="bi small bi-chevron-down"></i></span>
+              </div>
+            </div>
           </Col>
-          <Col>
-            <CustomScorecard
-              name="Average days to close"
-              value="30 days"
-              indicator="down"
-              type="success"
-              percent="20%"
-              period="Last 30 days"
-            />
+          <Col className="col-3">
+            <div className="custom-select">
+              <div className="input-label">Status</div>
+              <div className="input-group">
+                <select className="form-control" id="inputGroupSelect">
+                  <option defaultValue>All</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              <span className="input-group-text bg-transparent"><i className="bi small bi-chevron-down"></i></span>
+              </div>
+            </div>
           </Col>
-          <Col>
-            <CustomScorecard
-              name="Average touches to close"
-              value="7.6"
-              indicator="down"
-              type="success"
-              percent="15%"
-              period="Last 30 days"
-            />
-          </Col>
-          <Col>
-            <CustomScorecard
-              name="Current NPS"
-              value="4.8"
-              indicator="up"
-              type="success"
-              percent="11%"
-              period="Last 30 days"
-            />
+          <Col className="flex-shrink-1 col-1 text-center pt-2">
+            <i className="bi bi-sliders2"></i>
           </Col>
         </Row>
-        <Row className="py-4">
-          <Col className="col-3-5">
+        <Row className="pt-4">
+          <Col>
             <div className="scorecard">
-              <CustomHeader title="Open Escalations (4)" url="https://google.com" />
               <Table responsive className="radiant-table mt-4">
                 <thead>
                   <tr>
-                    <th width="30%">Matter name</th>
-                    <th>Short description</th>
-                    <th width="10%">Age</th>
+                    <th width="15%">Matter name <i className="bi small bi-caret-down-fill ps-2"></i></th>
+                    <th width="15%">Deal type <i className="bi small bi-caret-down-fill ps-2"></i></th>
+                    <th width="10%">Received date <i className="bi small bi-caret-down-fill ps-2"></i></th>
+                    <th>Status <i className="bi small bi-caret-down-fill ps-2"></i></th>
+                    <th width="10%">Business contact <i className="bi small bi-caret-down-fill ps-2"></i></th>
+                    <th width="10%">Region <i className="bi small bi-caret-down-fill ps-2"></i></th>
+                    <th width="15%">Business division <i className="bi small bi-caret-down-fill ps-2"></i></th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Tech Innovations - Framework Agreement</td>
-                    <td>Guidance required on the mark-up of regulatory provisions in annex 2</td>
-                    <td>3 days</td>
+                    <td className="px-2 py-4">Tech Solutions - Service Contract</td>
+                    <td>Service Contract</td>
+                    <td>15/03/2023</td>
+                    <td>Working On: Radiant</td>
+                    <td><a href="#">Jane Doe</a></td>
+                    <td>Asia Pacific</td>
+                    <td>Sales and Marketing</td>
+                    <td><Button variant="outline-dark" size="sm">View Details</Button>{' '}</td>
                   </tr>
                   <tr>
-                    <td>Eco Energy</td>
-                    <td>Data protection and SCCs</td>
-                    <td>6 days</td>
+                    <td className="px-2 py-4">Green Tech - Supply Agreement</td>
+                    <td>Supply Agreement</td>
+                    <td>16/03/2023</td>
+                    <td>Working On: Radiant</td>
+                    <td><a href="#">Alice Johnson</a></td>
+                    <td>EMEA</td>
+                    <td>Operations</td>
+                    <td><Button variant="outline-dark" size="sm">View Details</Button>{' '}</td>
                   </tr>
                   <tr>
-                    <td>Quantum Dynamics - Amendment</td>
-                    <td>Tax implications</td>
-                    <td>5 days</td>
+                    <td className="px-2 py-4">Health Innovations - Partnership Agreement</td>
+                    <td>Partnership Agreement</td>
+                    <td>27/03/2023</td>
+                    <td>Working On: Radiant</td>
+                    <td><a href="#">Emily White</a></td>
+                    <td>America</td>
+                    <td>Healthcare</td>
+                    <td><Button variant="outline-dark" size="sm">View Details</Button>{' '}</td>
                   </tr>
                   <tr>
-                    <td>Bright Horizons - Reinstatement</td>
-                    <td>Scope: restatement agreement</td>
-                    <td>8 days</td>
+                    <td className="px-2 py-4">Eco Solutions - Licensing Agreement</td>
+                    <td>Licensing Agreement</td>
+                    <td>18/03/2023</td>
+                    <td>Working On: Customer<br/><small>Business to provide feedback</small></td>
+                    <td><a href="#">William Green</a></td>
+                    <td>EMEA</td>
+                    <td>Environmental</td>
+                    <td><Button variant="outline-dark" size="sm">View Details</Button>{' '}</td>
+                  </tr>
+                  <tr>
+                    <td className="px-2 py-4">Smart Tech - Distribution Agreement</td>
+                    <td>Distribution Agreement</td>
+                    <td>28/03/2023</td>
+                    <td>Working On: Customer<br/><small>Business to provide feedback</small></td>
+                    <td><a href="#">Sophia Brown</a></td>
+                    <td>Asia Pacific</td>
+                    <td>Technology</td>
+                    <td><Button variant="outline-dark" size="sm">View Details</Button>{' '}</td>
                   </tr>
                 </tbody>
               </Table>
             </div>
-          </Col>
-          <Col className="col-2-5">
-            <div className="scorecard">
-              <div className="d-flex align-center">
-                <h4 className="flex-grow-1">Governance Actions</h4>
-              </div>
-              <div className="py-3">
-                <div className="d-flex align-center py-2 small">
-                  <div>
-                    <i className="bi bi-info-circle light-orange secondary-orange"></i>
-                  </div>
-                  <div className="ps-3 fw-light-bolder">
-                    Dora contract position to be discussed
-                  </div>
-                </div>
-                <div className="d-flex align-center py-2 small">
-                  <div>
-                    <i className="bi bi-info-circle light-orange secondary-orange"></i>
-                  </div>
-                  <div className="ps-3 fw-light-bolder">
-                    Dora contract position to be discussed
-                  </div>
-                </div>
-                <div className="d-flex align-center py-2 small">
-                  <div>
-                    <i className="bi bi-info-circle light-orange secondary-orange"></i>
-                  </div>
-                  <div className="ps-3 fw-light-bolder">
-                    Dora contract position to be discussed
-                  </div>
-                </div>
-                <div className="d-flex align-center py-2 small">
-                  <div>
-                    <i className="bi bi-info-circle light-orange secondary-orange"></i>
-                  </div>
-                  <div className="ps-3 fw-light-bolder">
-                    Dora contract position to be discussed
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
-        </Row>
-        <Row className="py-2">
-          <h4>Quarterly Reports</h4>
-        </Row>
-        <Row className="py-2">
-          <Col>
-            <CustomReportCard
-              date="10 June 2024"
-              description="Quarterly report xyz..."
-              url="https://google.com"
-            />
-          </Col>
-          <Col>
-            <CustomReportCard
-              date="10 June 2024"
-              description="Quarterly report xyz..."
-              url="https://google.com"
-            />
-          </Col>
-          <Col>
-            <CustomReportCard
-              date="10 June 2024"
-              description="Quarterly report xyz..."
-              url="https://google.com"
-            />
-          </Col>
-          <Col>
-            <CustomReportCard
-              date="10 June 2024"
-              description="Quarterly report xyz..."
-              url="https://google.com"
-            />
-          </Col>
-          <Col>
-            <CustomReportCard
-              date="10 June 2024"
-              description="Quarterly report xyz..."
-              url="https://google.com"
-            />
           </Col>
         </Row>
       </Container>
