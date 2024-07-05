@@ -9,7 +9,6 @@ import CustomScorecard from '@/components/CustomScorecard'
 import CustomHeader from '@/components/CustomHeader'
 import CustomReportCard from '@/components/CustomReportCard'
 
-function Home () {
   const [escalations, setEscalations] = useState([])
   const [actions, setActions] = useState([])
   const [reports, setReports] = useState([])
@@ -27,6 +26,8 @@ function Home () {
   }
 
   start()
+
+function Home () {
   
   return (
     <>
