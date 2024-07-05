@@ -9,9 +9,9 @@ export default defineConfig({
     outDir: './docs',
     rollupOptions: {
       output: {
-        entryFileNames: 'plugin.js',
-        assetFileNames: 'plugin.css',
-        chunkFileNames: "chunk.js"
+        entryFileNames: 'assets/plugin.js',
+        assetFileNames: 'assets/plugin.css',
+        chunkFileNames: "assets/chunk.js"
       }
     }
   },
