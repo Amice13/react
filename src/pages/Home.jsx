@@ -19,9 +19,11 @@ function Home () {
     console.log(currentReports)
     if (currentReports.records) setReports(currentReports.records)
     let currentActions = await window.db.search('Governance Actions', {})
+    console.log(currentActions)
     if (currentActions.records) setReports(currentActions.records)
     let currentEscalations = await window.db.search('Escalations', {})
     if (currentEscalations.records) setReports(currentEscalations.records)
+    console.log(currentEscalations)
   }
 
   start()
