@@ -105,9 +105,9 @@ function Home () {
                 { escalations.map((escalation) => {
                   return (
                     <tr key={escalation.id}>
-                      <td>{ escalation['Matter Name (just for testing)'] }</td>
-                      <td>{ escalation['Escalation Description'] }</td>
-                      <td>{ escalation['Days Open'] }</td>
+                      <td>{ escalation.fields?.['Matter Name (just for testing)'] ? ['Matter Name (just for testing)'] : '' }</td>
+                      <td>{ escalation.fields?.['Escalation Description'] ? escalation['Escalation Description'] : '' }</td>
+                      <td>{ escalation.fields?.['Days Open'] ? escalation['Days Open'] : '' }</td>
                     </tr>
                   )
                 })}
@@ -122,7 +122,7 @@ function Home () {
               </div>
               <div className="py-3">
                 { actions.map((action) => {
-                  return <HomeAction key={action.id} name={action.Name} />
+                  return <HomeAction key={action.id} name={action.fields?.Name ? action.fields?.Name : ''} />
                 })}
               </div>
             </div>
@@ -136,7 +136,7 @@ function Home () {
             return (
               <Col key={report.id}>
                 <CustomReportCard
-                  date={report.fields.Date}
+                  date={report?.fields?.Date ? report.fields.Date : '' }
                   description={Array.isArray(report?.fields?.Name) ? report.fields.Name[0] : report.fields.Name }
                   url="https://google.com"
                 />
