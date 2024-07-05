@@ -10,15 +10,17 @@ const sha256 = async (source) => {
 const target = new EventTarget()
 let requestChange
 if (window.Retool) {
-  window.Retool.subscribe((model) => {
-    // Skip data changes if the new request is set
-    if (requestChange) return false
-    if (model.results.length) {
-      let { hash, data } = model.results[model.results.length - 1]
-      model.results.pop()
-      target.dispatchEvent(new CustomEvent(hash, { detail: { data } }))
-    }
-  })
+  if (!window.db) {
+    window.Retool.subscribe((model) => {
+      // Skip data changes if the new request is set
+      if (requestChange) return false
+      if (model.results.length) {
+        let { hash, data } = model.results[model.results.length - 1]
+        model.results.pop()
+        target.dispatchEvent(new CustomEvent(hash, { detail: { data } }))
+      }
+    })
+  }
 }
 
 // Default preparation of the query
