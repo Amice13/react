@@ -10,8 +10,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         entryFileNames: 'assets/plugin.js',
-        assetFileNames: 'assets/plugin.css',
+        assetFileNames: 'assets/[name].[ext]',
         chunkFileNames: 'assets/chunk.js',
+        inlineDynamicImports: true,
         manualChunks: undefined
       }
     }

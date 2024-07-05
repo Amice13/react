@@ -11,7 +11,6 @@ import CustomReportCard from '@/components/CustomReportCard'
 
 function Home () {
 
-
   const [queryState, changeState] = useState(true)
 
   if (window.Retool) {
@@ -22,10 +21,9 @@ function Home () {
 
   const run = () => {
     if (window.Retool) {
-      console.log('query', window.Retool.triggerQuery('SEARCH_Playbook'))
+      console.log('query', window.Retool.triggerQuery('Playbook_Trigger'))
     }
     setTimeout(() => {
-      console.log(window.Retool.model)
       changeState('true')
     }, 5000)
   }
