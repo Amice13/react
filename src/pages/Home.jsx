@@ -10,7 +10,20 @@ import CustomHeader from '@/components/CustomHeader'
 import CustomReportCard from '@/components/CustomReportCard'
 
 function Home () {
-  const [key, setKey] = useState('home')
+
+
+  const [queryState, changeState] = useState(true)
+
+  const run = () => {
+    if (window.Retool) {
+      console.log('query', window.Retool.triggerQuery('SEARCH_Playbook'))
+    }
+    setTimeout(() => {
+      console.log(window.Retool.model)
+      changeState('true')
+    }, 5000)
+  }
+
 
   return (
     <>
@@ -122,6 +135,11 @@ function Home () {
                 <HomeAction name="Dora contract position to be discussed" />
                 <HomeAction name="Dora contract position to be discussed" />
                 <HomeAction name="Dora contract position to be discussed" />
+                { queryState }
+                <button
+                  type="button"
+                  onClick={() => run()}
+                >Blue</button>
               </div>
             </div>
           </Col>

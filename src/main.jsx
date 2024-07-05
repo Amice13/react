@@ -13,18 +13,14 @@ if (window.Retool) {
   const container = document.getElementById('react')
   const root = ReactDOM.createRoot(container)
   root.render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <ConnectedComponent />
+    <Provider store={store}>
+      <ConnectedComponent />
     </Provider>
-  </React.StrictMode>
   )
 } else {
   ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </React.StrictMode>,
+    <Provider store={store}>
+      <App />
+    </Provider>
   )
 }

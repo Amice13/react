@@ -13,10 +13,23 @@ import Tabs from 'react-bootstrap/Tabs'
 const layout = ({ children }) => {
   const [key, setKey] = useState('/')
   const navigate = useNavigate()
-  let location = useLocation()
+
   const matches = useMatches()
   const pageName = matches?.[0].handle?.meta?.name || 'Home'
-  console.log(matches[0].pathname)
+
+  const tabs = [
+    { title: 'Home', path: '/' },
+    { title: 'Matters', path: '/matters' },
+    { title: 'Escalations', path: '/escalations' },
+    { title: 'Playbooks', path: '/playbooks' },
+    { title: 'Reports', path: '/reports' },
+  ]
+
+  const goTo = (path) => {
+    setKey(path)
+    navigate(path)
+  }
+
   return (
     <>
     <div className="h-100 d-flex flex-column">
@@ -47,28 +60,32 @@ const layout = ({ children }) => {
           <Row className="h-100">
             <Col>
               <div className="h-100 d-flex flex-column pb-2">
-                <Tabs
-                  id="controlled-tab-example"
-                  activeKey={matches[0].pathname}
-                  onSelect={(k) => navigate(k)}
-                  className="mx-2"
-                > 
-                  <Tab eventKey="/" title="Home">
-                    {children}
-                  </Tab>
-                  <Tab eventKey="/matters" title="Matters">
-                    {children}
-                  </Tab>
-                  <Tab eventKey="/escalations" title="Escalations">
-                    {children}
-                  </Tab>
-                  <Tab eventKey="/playbooks" title="Playbooks">
-                    {children}
-                  </Tab>
-                  <Tab eventKey="/reports" title="Reports">
-                    {children}
-                  </Tab>
-                </Tabs>
+                <ul class="mx-2 nav nav-tabs" id="controlled-tab-example" role="tablist">
+                  {tabs.map((tab) => {
+                    return (
+                      <li class="nav-item" role="presentation">
+                        <button
+                          type="button"
+                          onClick={() => goTo(tab.path)}
+                          id="controlled-tab-example-tab-/"
+                          role="tab"
+                          data-rr-ui-event-key="/"
+                          aria-controls="controlled-tab-example-tabpane-/"
+                          aria-selected="true"
+                          className={`nav-link ${ tab.path === key ? 'active' : '' }`}>{tab.title}</button>
+                      </li>
+                    )
+                  })}
+                </ul>
+                <div class="tab-content">
+                  <div
+                    role="tabpanel"
+                    id="controlled-tab-example-tabpane-/"
+                    aria-labelledby="controlled-tab-example-tab-/"
+                    class="fade tab-pane active show">
+                      {children}
+                  </div>
+                </div>
               </div>
             </Col>
           </Row>

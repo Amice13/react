@@ -1,14 +1,14 @@
 import router from '@/router'
-import { Router, RouterProvider } from 'react-router-dom'
+import { Outlet, Router, RouterProvider } from 'react-router-dom'
 import Layout from './layouts/main.jsx'
+import {  } from "react-router-dom"
 
 function App({ triggerQuery, model, modelUpdate }) {
-  console.log(model)
-  window.model = model
-  console.log('model', window.model)
+  window.app = { triggerQuery, model, modelUpdate }
   return (
     <>
-      <RouterProvider router={router} />
+    <Outlet context={[triggerQuery, model, modelUpdate]} />
+    <RouterProvider router={router} model={model} />
     </>
   )
 }

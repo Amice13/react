@@ -6,7 +6,14 @@ import { fileURLToPath, URL } from 'node:url'
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: './docs'
+    outDir: './docs',
+    rollupOptions: {
+      output: {
+        entryFileNames: 'plugin.js',
+        assetFileNames: 'plugin.css',
+        chunkFileNames: "chunk.js"
+      }
+    }
   },
   base: 'https://amice13.github.io/react/',
   resolve: {
