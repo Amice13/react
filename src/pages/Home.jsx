@@ -15,7 +15,7 @@ function Home () {
 
   if (window.Retool) {
     window.Retool.subscribe(function (model) {
-      console.log(model.result)
+      console.log(model)
     })
   }
 
