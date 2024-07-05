@@ -15,15 +15,16 @@ function Home () {
   const [reports, setReports] = useState([])
 
   useEffect(async () => {
+
     let currentReports = await window.db.search('Quaterly Reports', {})
-    console.log(currentReports)
     if (currentReports.records) setReports(currentReports.records)
+
     let currentActions = await window.db.search('Governance Actions', {})
-    console.log(currentActions)
-    if (currentActions.records) setReports(currentActions.records)
+    if (currentActions.records) setActions(currentActions.records)
+
     let currentEscalations = await window.db.search('Escalations', {})
-    if (currentEscalations.records) setReports(currentEscalations.records)
-    console.log(currentEscalations)
+    if (currentEscalations.records) setEscalations(currentEscalations.records)
+
   }, [])
   
   return (
