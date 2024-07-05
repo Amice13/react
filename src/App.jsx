@@ -5,6 +5,7 @@ import Layout from './layouts/main.jsx'
 function App({ triggerQuery, model, modelUpdate }) {
   console.log(model)
   window.model = model
+  console.log('model', window.model)
   return (
     <>
       <RouterProvider router={router} />
