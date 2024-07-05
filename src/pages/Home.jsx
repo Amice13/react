@@ -13,14 +13,6 @@ function Home () {
 
   const [queryState, changeState] = useState(true)
 
-  if (window.Retool) {
-    console.log('Retool is connected')
-    window.Retool.subscribe(function (model) {
-      console.log(model.results)
-      console.log(model)
-    })
-  }
-
   const run = () => {
     if (window.Retool) {
       console.log('query', window.Retool.triggerQuery('Playbook_Trigger'))
