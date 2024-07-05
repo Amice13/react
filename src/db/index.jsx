@@ -12,9 +12,11 @@ let requestChange
 if (window.Retool) {
   window.Retool.subscribe((model) => {
     // Skip data changes if the new request is set
+    console.log('subscribe fires')
     if (requestChange) return false
     if (model.results.length) {
       let { hash, data } = model.results[model.results.length - 1]
+      console.log('data', data)
       target.dispatchEvent(new CustomEvent(hash, { detail: data }))
     }
   })
@@ -29,7 +31,7 @@ const db = {
       window.Retool.modelUpdate({ method: 'SEARCH', table, query, hash })
       requestChange = false
       window.Retool.triggerQuery('Playbook_Trigger')
-      target.addEventListener(hash, (e) => { resolve(e.detail.data) }, { once: true })      
+      target.addEventListener(hash, (e) => { console.log(e); resolve(e.detail.data) }, { once: true })      
     })
   }
 }
