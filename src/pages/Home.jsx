@@ -106,9 +106,9 @@ function Home () {
                 { escalations.map((escalation) => {
                   return (
                     <tr key={escalation.id}>
-                      <td>{ escalation.fields?.['Matter Name (just for testing)'] ? ['Matter Name (just for testing)'] : '' }</td>
-                      <td>{ escalation.fields?.['Escalation Description'] ? escalation['Escalation Description'] : '' }</td>
-                      <td>{ escalation.fields?.['Days Open'] ? escalation['Days Open'] : '' }</td>
+                      <td>{ escalation.fields?.['Matter Name (just for testing)'] ? escalation.fields['Matter Name (just for testing)'] : '' }</td>
+                      <td>{ escalation.fields?.['Escalation Description'] ? escalation.fields['Escalation Description'] : '' }</td>
+                      <td>{ escalation.fields?.['Days Open'] ? escalation.fields['Days Open'] : '' }</td>
                     </tr>
                   )
                 })}
