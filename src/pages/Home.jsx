@@ -14,9 +14,10 @@ function Home () {
   const [queryState, changeState] = useState(true)
 
   if (window.Retool) {
+    console.log('Retool is connected')
     window.Retool.subscribe(function (model) {
-      changeState('done')
       console.log(model.results)
+      console.log(model)
     })
   }
 
@@ -28,7 +29,6 @@ function Home () {
     //   changeState('true')
     // }, 5000)
   }
-
 
   return (
     <>
