@@ -12,15 +12,17 @@ import CustomReportCard from '@/components/CustomReportCard'
 function Home () {
 
   const [queryState, changeState] = useState(true)
+  window.Retool.subscribe((model) => {
+    console.log('mymodel', model)
+  })
 
   const run = () => {
     if (window.Retool) {
       console.log('query', window.Retool.triggerQuery('Playbook_Trigger'))
     }
-    // setTimeout(() => {
-    //   changeState('true')
-    // }, 5000)
   }
+
+
 
   return (
     <>
