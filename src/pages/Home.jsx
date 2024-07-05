@@ -16,6 +16,7 @@ function Home () {
 
   const start = async () => {
     let currentReports = await window.db.search('Quaterly Reports', {})
+    console.log(currentReports)
     if (currentReports.records) setReports(currentReports.records)
     let currentActions = await window.db.search('Governance Actions', {})
     if (currentActions.records) setReports(currentActions.records)
@@ -135,8 +136,8 @@ function Home () {
             return (
               <Col key={report.id}>
                 <CustomReportCard
-                  date={report.Date}
-                  description={report.Name}
+                  date={report.fields.Date[0]}
+                  description={report.fields.Name[0]}
                   url="https://google.com"
                 />
               </Col>)
