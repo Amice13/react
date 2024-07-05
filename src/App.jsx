@@ -13,7 +13,7 @@ function App() {
   window.sha256 = sha256
   return (
     <>
-    <RouterProvider router={router} model={model} />
+    <RouterProvider router={router} />
     </>
   )
 }
