@@ -63,15 +63,13 @@ const layout = ({ children }) => {
                 <ul className="mx-2 nav nav-tabs" id="controlled-tab-example" role="tablist">
                   {tabs.map((tab) => {
                     return (
-                      <li className="nav-item" role="presentation">
+                      <li key={tab.path} className="nav-item" role="presentation">
                         <button
                           type="button"
-                          key={tab.path}
                           onClick={() => goTo(tab.path)}
-                          id="controlled-tab-example-tab-/"
+                          id={`controlled-tab-tab-${tab.path}`}
                           role="tab"
-                          data-rr-ui-event-key="/"
-                          aria-controls="controlled-tab-example-tabpane-/"
+                          aria-controls={`controlled-tab-tab-${tab.path}`}
                           aria-selected="true"
                           className={`nav-link ${ tab.path === key ? 'active' : '' }`}>{tab.title}</button>
                       </li>

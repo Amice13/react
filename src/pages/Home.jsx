@@ -10,20 +10,14 @@ import CustomHeader from '@/components/CustomHeader'
 import CustomReportCard from '@/components/CustomReportCard'
 
 function Home () {
-
   const [queryState, changeState] = useState(true)
-  window.Retool.subscribe((model) => {
-    console.log('mymodel', model)
-  })
-
-  const run = () => {
-    if (window.Retool) {
-      console.log('query', window.Retool.triggerQuery('Playbook_Trigger'))
-    }
+  const start = async () => {
+    let data = await window.db.search('PB Issue', {})
+    console.log(data)
   }
 
-
-
+  start()
+  
   return (
     <>
       <Container fluid>
