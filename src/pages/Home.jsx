@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -9,11 +9,12 @@ import CustomScorecard from '@/components/CustomScorecard'
 import CustomHeader from '@/components/CustomHeader'
 import CustomReportCard from '@/components/CustomReportCard'
 
+function Home () {
   const [escalations, setEscalations] = useState([])
   const [actions, setActions] = useState([])
   const [reports, setReports] = useState([])
 
-  const start = async () => {
+  useEffect(async () => {
     let currentReports = await window.db.search('Quaterly Reports', {})
     console.log(currentReports)
     if (currentReports.records) setReports(currentReports.records)
@@ -23,11 +24,7 @@ import CustomReportCard from '@/components/CustomReportCard'
     let currentEscalations = await window.db.search('Escalations', {})
     if (currentEscalations.records) setReports(currentEscalations.records)
     console.log(currentEscalations)
-  }
-
-  start()
-
-function Home () {
+  }, [])
   
   return (
     <>
