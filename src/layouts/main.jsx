@@ -60,12 +60,13 @@ const layout = ({ children }) => {
           <Row className="h-100">
             <Col>
               <div className="h-100 d-flex flex-column pb-2">
-                <ul class="mx-2 nav nav-tabs" id="controlled-tab-example" role="tablist">
+                <ul className="mx-2 nav nav-tabs" id="controlled-tab-example" role="tablist">
                   {tabs.map((tab) => {
                     return (
-                      <li class="nav-item" role="presentation">
+                      <li className="nav-item" role="presentation">
                         <button
                           type="button"
+                          key={tab.path}
                           onClick={() => goTo(tab.path)}
                           id="controlled-tab-example-tab-/"
                           role="tab"
@@ -77,12 +78,12 @@ const layout = ({ children }) => {
                     )
                   })}
                 </ul>
-                <div class="tab-content">
+                <div className="tab-content">
                   <div
                     role="tabpanel"
                     id="controlled-tab-example-tabpane-/"
                     aria-labelledby="controlled-tab-example-tab-/"
-                    class="fade tab-pane active show">
+                    className="fade tab-pane active show">
                       {children}
                   </div>
                 </div>

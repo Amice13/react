@@ -15,7 +15,7 @@ function Home () {
 
   if (window.Retool) {
     window.Retool.subscribe(function (model) {
-      changeState(JSON.stringify(model.results))
+      changeState(JSON.stringify(model && model.results ? model.results : []))
       console.log(model.results)
     })
   }
