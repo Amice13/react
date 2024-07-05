@@ -16,8 +16,7 @@ if (window.Retool) {
     if (model.results.length) {
       let { hash, data } = model.results[model.results.length - 1]
       model.results.pop()
-      console.log(data)
-      target.dispatchEvent(new CustomEvent(hash, { detail: data }))
+      target.dispatchEvent(new CustomEvent(hash, { detail: { data } }))
     }
   })
 }
@@ -66,7 +65,7 @@ const db = {
     if (!window.Retool) return false
     return new Promise(async (resolve, reject) => {
       const hash = await prepareQuery('SEARCH', table, query)
-      target.addEventListener(hash, (e) => { console.log(e); resolve(e.detail.data) }, { once: true })      
+      target.addEventListener(hash, (e) => { resolve(e.detail.data) }, { once: true })      
     })
   }
 }
