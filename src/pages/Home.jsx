@@ -15,7 +15,7 @@ function Home () {
   const [reports, setReports] = useState([])
 
   const start = async () => {
-    let currentReports = await window.db.search('Quarterly Reports', {})
+    let currentReports = await window.db.search('Quaterly Reports', {})
     if (currentReports.records) setReports(currentReports.records)
     let currentActions = await window.db.search('Governance Actions', {})
     if (currentActions.records) setReports(currentActions.records)
@@ -128,7 +128,7 @@ function Home () {
           </Col>
         </Row>
         <Row className="py-2">
-          <h4>Quarterly Reports</h4>
+          <h4>Quaterly Reports</h4>
         </Row>
         <Row className="py-2">
           { reports.map(report => {
