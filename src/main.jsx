@@ -8,19 +8,27 @@ import './App.scss'
 import store from '@/store'
 import { Provider } from 'react-redux'
 
-if (window.Retool) {
-  const ConnectedComponent = window.Retool.connectReactComponent(App)
-  const container = document.getElementById('react')
-  const root = ReactDOM.createRoot(container)
-  root.render(
-    <Provider store={store}>
-      <ConnectedComponent />
-    </Provider>
-  )
-} else {
-  ReactDOM.createRoot(document.getElementById('root')).render(
+const rootComponent = window.Retool ? 'react' : 'root'
+
+// if (window.Retool) {
+//   const ConnectedComponent = window.Retool.connectReactComponent(App)
+//   const container = document.getElementById('react')
+//   const root = ReactDOM.createRoot(container)
+//   root.render(
+//     <Provider store={store}>
+//       <ConnectedComponent />
+//     </Provider>
+//   )
+// } else {
+//   ReactDOM.createRoot(document.getElementById('root')).render(
+//     <Provider store={store}>
+//       <App />
+//     </Provider>
+//   )
+// }
+
+  ReactDOM.createRoot(document.getElementById(rootComponent)).render(
     <Provider store={store}>
       <App />
     </Provider>
   )
-}
