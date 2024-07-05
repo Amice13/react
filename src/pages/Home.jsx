@@ -10,10 +10,17 @@ import CustomHeader from '@/components/CustomHeader'
 import CustomReportCard from '@/components/CustomReportCard'
 
 function Home () {
-  const [queryState, changeState] = useState(true)
+  const [escalations, setEscalations] = useState([])
+  const [actions, setActions] = useState([])
+  const [reports, setReports] = useState([])
+
   const start = async () => {
-    let data = await window.db.search('PB Issue', {})
-    console.log(data)
+    let currentReports = await window.db.search('Quarterly Reports', {})
+    if (currentReports.records) setReports(currentReports.records)
+    let currentActions = await window.db.search('Governance Actions', {})
+    if (currentActions.records) setReports(currentActions.records)
+    let currentEscalations = await window.db.search('Escalations', {})
+    if (currentEscalations.records) setReports(currentEscalations.records)
   }
 
   start()
@@ -94,26 +101,15 @@ function Home () {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Tech Innovations - Framework Agreement</td>
-                    <td>Guidance required on the mark-up of regulatory provisions in annex 2</td>
-                    <td>3 days</td>
-                  </tr>
-                  <tr>
-                    <td>Eco Energy</td>
-                    <td>Data protection and SCCs</td>
-                    <td>6 days</td>
-                  </tr>
-                  <tr>
-                    <td>Quantum Dynamics - Amendment</td>
-                    <td>Tax implications</td>
-                    <td>5 days</td>
-                  </tr>
-                  <tr>
-                    <td>Bright Horizons - Reinstatement</td>
-                    <td>Scope: restatement agreement</td>
-                    <td>8 days</td>
-                  </tr>
+                { escalations.map((escalation) => {
+                  return (
+                    <tr key={escalation.id}>
+                      <td>{ escalation['Matter Name (just for testing)'] }</td>
+                      <td>{ escalation['Escalation Description'] }</td>
+                      <td>{ escalation['Days Open'] }</td>
+                    </tr>
+                  )
+                })}
                 </tbody>
               </Table>
             </div>
@@ -124,15 +120,9 @@ function Home () {
                 <h4 className="flex-grow-1">Governance Actions</h4>
               </div>
               <div className="py-3">
-                <HomeAction name="Dora contract position to be discussed" />
-                <HomeAction name="Dora contract position to be discussed" />
-                <HomeAction name="Dora contract position to be discussed" />
-                <HomeAction name="Dora contract position to be discussed" />
-                { queryState }
-                <button
-                  type="button"
-                  onClick={() => run()}
-                >Blue</button>
+                { actions.map((action) => {
+                  return <HomeAction key={action.id} name={action.Name} />
+                })}
               </div>
             </div>
           </Col>
@@ -141,41 +131,16 @@ function Home () {
           <h4>Quarterly Reports</h4>
         </Row>
         <Row className="py-2">
-          <Col>
-            <CustomReportCard
-              date="10 June 2024"
-              description="Quarterly report xyz..."
-              url="https://google.com"
-            />
-          </Col>
-          <Col>
-            <CustomReportCard
-              date="10 June 2024"
-              description="Quarterly report xyz..."
-              url="https://google.com"
-            />
-          </Col>
-          <Col>
-            <CustomReportCard
-              date="10 June 2024"
-              description="Quarterly report xyz..."
-              url="https://google.com"
-            />
-          </Col>
-          <Col>
-            <CustomReportCard
-              date="10 June 2024"
-              description="Quarterly report xyz..."
-              url="https://google.com"
-            />
-          </Col>
-          <Col>
-            <CustomReportCard
-              date="10 June 2024"
-              description="Quarterly report xyz..."
-              url="https://google.com"
-            />
-          </Col>
+          { reports.map(report => {
+            return (
+              <Col key={report.id}>
+                <CustomReportCard
+                  date={report.Date}
+                  description={report.Name}
+                  url="https://google.com"
+                />
+              </Col>)
+          })}
         </Row>
       </Container>
     </>
