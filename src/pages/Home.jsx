@@ -14,6 +14,12 @@ function Home () {
 
   const [queryState, changeState] = useState(true)
 
+  if (window.Retool) {
+    window.Retool.subscribe(function (model) {
+      console.log(model.result)
+    })
+  }
+
   const run = () => {
     if (window.Retool) {
       console.log('query', window.Retool.triggerQuery('SEARCH_Playbook'))
