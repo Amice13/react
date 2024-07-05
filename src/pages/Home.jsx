@@ -137,7 +137,7 @@ function Home () {
               <Col key={report.id}>
                 <CustomReportCard
                   date={report.fields.Date}
-                  description={report.fields.Name[0]}
+                  description={Array.isArray(report?.fields?.Name) ? report.fields.Name[0] : report.fields.Name }
                   url="https://google.com"
                 />
               </Col>)
