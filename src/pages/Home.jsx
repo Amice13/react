@@ -15,7 +15,8 @@ function Home () {
 
   if (window.Retool) {
     window.Retool.subscribe(function (model) {
-      console.log(model)
+      changeState(JSON.stringify(model.results))
+      console.log(model.results)
     })
   }
 
@@ -23,9 +24,9 @@ function Home () {
     if (window.Retool) {
       console.log('query', window.Retool.triggerQuery('Playbook_Trigger'))
     }
-    setTimeout(() => {
-      changeState('true')
-    }, 5000)
+    // setTimeout(() => {
+    //   changeState('true')
+    // }, 5000)
   }
 
 
