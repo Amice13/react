@@ -21,7 +21,7 @@ if (window.Retool) {
 }
 
 // Default preparation of the query
-const prepareQuery = async (table, query) => {
+const prepareQuery = async (method, table, query) => {
   const hash = await sha256(table + JSON.stringify(query))
   requestChange = true
   window.Retool.modelUpdate({ method, table, query, hash })
