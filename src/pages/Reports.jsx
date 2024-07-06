@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -8,7 +7,7 @@ import CustomScorecard from '@/components/CustomScorecard'
 import CustomHeader from '@/components/CustomHeader'
 import CustomReportCard from '@/components/CustomReportCard'
 
-function Home () {
+function Reports () {
   const [key, setKey] = useState('home')
 
   return (
@@ -198,4 +197,4 @@ function Home () {
   )
 }
 
-export default Home
+export default Reports

@@ -6,12 +6,23 @@ const sha256 = async (source) => {
   return resultBytes.map(x => x.toString(16).padStart(2, '0')).join('')
 }
 
+// Initial settings
+let version = '0.1'
+
+const setInitialData = (model) => {
+  const appVersion = localStorage.getItem('appVersion')
+  if (appVersion && appVersion === version) return false
+  localStorage.setItem('user', model.user)  
+  localStorage.setItem('appVersion', version)
+}
+
 // Listen to change of data
 const target = new EventTarget()
 let requestChange
 if (window.Retool) {
   if (!window.db) {
     window.Retool.subscribe((model) => {
+      setInitialData(model)
       // Skip data changes if the new request is set
       if (requestChange) return false
       if (model.results.length) {

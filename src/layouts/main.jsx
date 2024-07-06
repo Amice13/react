@@ -6,14 +6,13 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Stack from 'react-bootstrap/Stack'
-import Image from 'react-bootstrap/Image'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
+import GlobalAvatar from '@/components/GlobalAvatar'
 
 const layout = ({ children }) => {
   const [key, setKey] = useState('/')
   const navigate = useNavigate()
-
   const matches = useMatches()
   const pageName = matches?.[0].handle?.meta?.name || 'Home'
 
@@ -47,9 +46,7 @@ const layout = ({ children }) => {
               <div className="ms-auto">
                 <i className="bi bi-bell-fill" style={{ fontSize: '24px' }}></i>
               </div>
-              <div className="avatar">
-                <Image src="https://avatar.iran.liara.run/public" width="40" rounded />
-              </div>
+              <GlobalAvatar />
             </Stack>
           </Col>
         </Row>
@@ -71,7 +68,7 @@ const layout = ({ children }) => {
                           role="tab"
                           aria-controls={`controlled-tab-tab-${tab.path}`}
                           aria-selected="true"
-                          className={`nav-link ${ tab.path === key ? 'active' : '' }`}>{tab.title}</button>
+                          className={`nav-link ${ tab.path === matches[0].pathname ? 'active' : '' }`}>{tab.title}</button>
                       </li>
                     )
                   })}

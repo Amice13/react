@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -10,23 +11,40 @@ import CustomHeader from '@/components/CustomHeader'
 import CustomReportCard from '@/components/CustomReportCard'
 
 function Home () {
+  const navigate = useNavigate()
+
   const [escalations, setEscalations] = useState([])
   const [actions, setActions] = useState([])
   const [reports, setReports] = useState([])
+  const [escalationsLoader, setEscalationsLoader] = useState(true)
+  const [actionsLoader, setActionsLoader] = useState(true)
+  const [reportsLoader, setReportsLoader] = useState(true)
 
-  useEffect(async () => {
+  useEffect(() => {
+    async function fetchData() {
+      let currentReports = await window.db.search('Quaterly Reports', {})
+      if (currentReports.records) setReports(currentReports.records)
+      setReportsLoader(false)
 
-    let currentReports = await window.db.search('Quaterly Reports', {})
-    if (currentReports.records) setReports(currentReports.records)
+      let currentActions = await window.db.search('Governance Actions', {})
+      if (currentActions.records) setActions(currentActions.records)
+      setActionsLoader(false)
 
-    let currentActions = await window.db.search('Governance Actions', {})
-    if (currentActions.records) setActions(currentActions.records)
-
-    let currentEscalations = await window.db.search('Escalations', {})
-    if (currentEscalations.records) setEscalations(currentEscalations.records)
-
+      let currentEscalations = await window.db.search('Escalations', {})
+      if (currentEscalations.records) setEscalations(currentEscalations.records)
+      setEscalationsLoader(false)
+    }
+    fetchData()
   }, [])
   
+  const goTo = url => {
+    if (!url.match(/^http/)) {
+      navigate(url)
+      return navigate(0)
+    }
+    window.location.href = url
+  }
+
   return (
     <>
       <Container fluid>
@@ -92,8 +110,8 @@ function Home () {
         </Row>
         <Row className="py-4">
           <Col className="col-3-5">
-            <div className="scorecard">
-              <CustomHeader title="Open Escalations (4)" url="https://google.com" />
+            <div className="scorecard h-100">
+              <CustomHeader title="Open Escalations" url="/escalations" goTo={goTo} />
               <Table responsive className="radiant-table mt-4">
                 <thead>
                   <tr>
@@ -114,10 +132,13 @@ function Home () {
                 })}
                 </tbody>
               </Table>
+              <div className="text-center" style={{ display: escalationsLoader ? 'none' : 'block' }}>
+                <span className="loader"></span>
+              </div>
             </div>
           </Col>
           <Col className="col-2-5">
-            <div className="scorecard">
+            <div className="scorecard h-100">
               <div className="d-flex align-center">
                 <h4 className="flex-grow-1">Governance Actions</h4>
               </div>
@@ -125,6 +146,9 @@ function Home () {
                 { actions.map((action) => {
                   return <HomeAction key={action.id} name={action.fields?.Name ? action.fields?.Name : ''} />
                 })}
+                <div className="text-center" style={{ display: actionsLoader ? 'none' : 'block' }}>
+                  <span className="loader"></span>
+                </div>
               </div>
             </div>
           </Col>
@@ -143,6 +167,11 @@ function Home () {
                 />
               </Col>)
           })}
+          <Col>
+            <div className="text-center" style={{ display: reportsLoader ? 'none' : 'block' }}>
+              <span className="loader"></span>
+            </div>
+          </Col>
         </Row>
       </Container>
     </>

@@ -1,25 +1,18 @@
-import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Table from 'react-bootstrap/Table'
-import CustomScorecard from '@/components/CustomScorecard'
-import CustomHeader from '@/components/CustomHeader'
-import CustomReportCard from '@/components/CustomReportCard'
+import CustomSelectorBox from '@/components/CustomSelectorBox'
 import Button from 'react-bootstrap/Button'
 
-function Home () {
+function Matters () {
 
   return (
     <>
       <Container fluid>
         <Row className="py-2 px-3">
           <Col>
-            <div className="custom-selector">
-              <div className="active">Intake</div>
-              <div>Open</div>
-              <div>Closed</div>
-            </div>
+            <CustomSelectorBox selected="Intake" options={['Intake', 'Open', 'Closed']} />
           </Col>
           <Col className="col-3">
             <div className="input-group">
@@ -90,7 +83,7 @@ function Home () {
                     <td><a href="#">Jane Doe</a></td>
                     <td>Asia Pacific</td>
                     <td>Sales and Marketing</td>
-                    <td><Button variant="outline-dark" size="sm">View Details</Button>{' '}</td>
+                    <td><Button variant="outline-black" size="sm">View Details</Button>{' '}</td>
                   </tr>
                   <tr>
                     <td className="px-2 py-4">Green Tech - Supply Agreement</td>
@@ -100,7 +93,7 @@ function Home () {
                     <td><a href="#">Alice Johnson</a></td>
                     <td>EMEA</td>
                     <td>Operations</td>
-                    <td><Button variant="outline-dark" size="sm">View Details</Button>{' '}</td>
+                    <td><Button variant="outline-black" size="sm">View Details</Button>{' '}</td>
                   </tr>
                   <tr>
                     <td className="px-2 py-4">Health Innovations - Partnership Agreement</td>
@@ -110,7 +103,7 @@ function Home () {
                     <td><a href="#">Emily White</a></td>
                     <td>America</td>
                     <td>Healthcare</td>
-                    <td><Button variant="outline-dark" size="sm">View Details</Button>{' '}</td>
+                    <td><Button variant="outline-black" size="sm">View Details</Button>{' '}</td>
                   </tr>
                   <tr>
                     <td className="px-2 py-4">Eco Solutions - Licensing Agreement</td>
@@ -120,7 +113,7 @@ function Home () {
                     <td><a href="#">William Green</a></td>
                     <td>EMEA</td>
                     <td>Environmental</td>
-                    <td><Button variant="outline-dark" size="sm">View Details</Button>{' '}</td>
+                    <td><Button variant="outline-black" size="sm">View Details</Button>{' '}</td>
                   </tr>
                   <tr>
                     <td className="px-2 py-4">Smart Tech - Distribution Agreement</td>
@@ -130,7 +123,7 @@ function Home () {
                     <td><a href="#">Sophia Brown</a></td>
                     <td>Asia Pacific</td>
                     <td>Technology</td>
-                    <td><Button variant="outline-dark" size="sm">View Details</Button>{' '}</td>
+                    <td><Button variant="outline-black" size="sm">View Details</Button>{' '}</td>
                   </tr>
                 </tbody>
               </Table>
@@ -142,4 +135,4 @@ function Home () {
   )
 }
 
-export default Home
+export default Matters

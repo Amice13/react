@@ -5,8 +5,10 @@ import Layout from '@/layouts/main'
 import Home from '@/pages/Home'
 import Matters from '@/pages/Matters'
 import Escalations from '@/pages/Escalations'
+import Escalation from '@/pages/Escalation'
 import Playbooks from '@/pages/Playbooks'
 import Reports from '@/pages/Reports'
+import Playbook from '@/pages/Playbook'
 
 const router = createHashRouter([
   {
@@ -42,6 +44,20 @@ const router = createHashRouter([
     element: <Layout><Reports /></Layout>,
     handle: {
       meta: { name: 'Customer - Reports' }
+    }
+  },
+  {
+    path: '/escalation',
+    element: <Layout><Escalation /></Layout>,
+    handle: {
+      meta: { name: 'Customer - Escalations' }
+    }
+  },
+  {
+    path: '/playbook',
+    element: <Layout><Playbook /></Layout>,
+    handle: {
+      meta: { name: 'Customer - Playbooks' }
     }
   },
 ])
