@@ -132,7 +132,7 @@ function Home () {
                 })}
                 </tbody>
               </Table>
-              <div className="text-center" style={{ display: escalationsLoader ? 'none' : 'block' }}>
+              <div className="text-center" style={{ display: escalationsLoader ? 'block': 'none' }}>
                 <span className="loader"></span>
               </div>
             </div>
@@ -146,7 +146,7 @@ function Home () {
                 { actions.map((action) => {
                   return <HomeAction key={action.id} name={action.fields?.Name ? action.fields?.Name : ''} />
                 })}
-                <div className="text-center" style={{ display: actionsLoader ? 'none' : 'block' }}>
+                <div className="text-center" style={{ display: actionsLoader ? 'block': 'none' }}>
                   <span className="loader"></span>
                 </div>
               </div>
@@ -168,7 +168,7 @@ function Home () {
               </Col>)
           })}
           <Col>
-            <div className="text-center" style={{ display: reportsLoader ? 'none' : 'block' }}>
+            <div className="text-center" style={{ display: reportsLoader ? 'block': 'none' }}>
               <span className="loader"></span>
             </div>
           </Col>

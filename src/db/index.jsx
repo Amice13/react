@@ -7,12 +7,12 @@ const sha256 = async (source) => {
 }
 
 // Initial settings
-let version = '0.1'
+let version = '0.2'
 
 const setInitialData = (model) => {
   const appVersion = localStorage.getItem('appVersion')
   if (appVersion && appVersion === version) return false
-  localStorage.setItem('user', model.user)  
+  localStorage.setItem('user', JSON.stringify(model.user))  
   localStorage.setItem('appVersion', version)
 }
 

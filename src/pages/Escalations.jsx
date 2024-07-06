@@ -152,7 +152,7 @@ function Escalations () {
                   </tr>*/}
                 </tbody>
               </Table>
-              <div className="text-center" style={{ display: escalationsLoader ? 'none' : 'block' }}>
+              <div className="text-center" style={{ display: escalationsLoader ? 'block': 'none' }}>
                 <span className="loader"></span>
               </div>
             </div>
