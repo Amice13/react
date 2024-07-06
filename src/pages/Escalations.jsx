@@ -70,6 +70,7 @@ function Escalations () {
                               )
                             })}
                           </select>
+                          { JSON.stringify(contacts)}
                         </td>
                         <td>
                           {escalation.fields?.['Urgent'] || ''}

@@ -5,7 +5,6 @@ import Dropdown from 'react-bootstrap/Dropdown'
 function GlobalAvatar ({ name, href }) {
   const user = JSON.parse(localStorage.getItem('user') || '{}')
   const [showDropdown, setDropdown] = useState(false)
-  console.log(user)
   return (
     <div className="avatar">
       <Dropdown
