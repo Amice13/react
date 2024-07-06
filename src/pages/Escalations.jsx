@@ -17,7 +17,6 @@ function Escalations () {
   useEffect(() => {
     async function fetchData() {
       let currentContacts = await window.db.search('Contacts', { maxRecords: 100, pageSize: 100 })
-      console.log(currentContacts)
       if (currentContacts.records) setContacts(currentContacts.records)
       let currentEscalations = await window.db.search('Escalations', { maxRecords: 100, pageSize: 10 })
       if (currentEscalations.records) setEscalations(currentEscalations.records)
@@ -71,7 +70,6 @@ function Escalations () {
                               )
                             })}
                           </select>
-                          { JSON.stringify(contacts)}
                         </td>
                         <td>
                           {escalation.fields?.['Urgent'] || ''}
