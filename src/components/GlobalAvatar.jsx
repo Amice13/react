@@ -17,8 +17,8 @@ function GlobalAvatar ({ name, href }) {
           onClick={() => setDropdown(true)}
           src={user ? user.profilePhotoUrl : 'https://avatar.iran.liara.run/public'}
           style={{ cursor: 'pointer' }}
+          className="rounded-circle"
           width="40"
-          rounded
         />
         <Dropdown.Menu
           style={{ position: 'absolute', top: '40px', right: '0px' }}
