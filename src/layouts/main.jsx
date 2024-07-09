@@ -18,10 +18,10 @@ const layout = ({ children }) => {
 
   const tabs = [
     { title: 'Home', path: '/' },
-    { title: 'Matters', path: '/matters' },
+    // { title: 'Matters', path: '/matters' },
     { title: 'Escalations', path: '/escalations' },
     { title: 'Playbooks', path: '/playbooks' },
-    { title: 'Reports', path: '/reports' },
+    // { title: 'Reports', path: '/reports' },
   ]
 
   const goTo = (path) => {
