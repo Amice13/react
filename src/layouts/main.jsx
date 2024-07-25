@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useNavigate, useMatches } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import Logo from '@/assets/logo.png'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -8,20 +9,19 @@ import Col from 'react-bootstrap/Col'
 import Stack from 'react-bootstrap/Stack'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
-import GlobalAvatar from '@/components/GlobalAvatar'
+import LayoutNewsIndicator from '@/components/LayoutNewsIndicator'
+import LayoutAccountSelector from '@/components/LayoutAccountSelector'
+import LayoutAvatar from '@/components/LayoutAvatar'
+import LayoutSiteTitle from '@/components/LayoutSiteTitle'
 
 const layout = ({ children }) => {
   const [key, setKey] = useState('/')
   const navigate = useNavigate()
   const matches = useMatches()
   const pageName = matches?.[0].handle?.meta?.name || 'Home'
-
   const tabs = [
-    { title: 'Home', path: '/' },
-    // { title: 'Matters', path: '/matters' },
-    { title: 'Escalations', path: '/escalations' },
-    { title: 'Playbooks', path: '/playbooks' },
-    // { title: 'Reports', path: '/reports' },
+    { title: 'Escalations', path: '/' },
+    { title: 'Playbooks', path: '/playbooks' }
   ]
 
   const goTo = (path) => {
@@ -42,11 +42,10 @@ const layout = ({ children }) => {
                   <img src={Logo} className="logo" alt="Radiant logo" />
                 </a>
               </div>
-              <h3>{pageName}</h3>
-              <div className="ms-auto">
-                <i className="bi bi-bell-fill" style={{ fontSize: '24px' }}></i>
-              </div>
-              <GlobalAvatar />
+              <LayoutSiteTitle pageName={pageName} />
+              <LayoutAccountSelector />
+              <LayoutNewsIndicator />
+              <LayoutAvatar />
             </Stack>
           </Col>
         </Row>

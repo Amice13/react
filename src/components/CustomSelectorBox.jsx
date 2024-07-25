@@ -1,15 +1,15 @@
 import { useState } from 'react'
 
-function CustomSelectBox ({ options, selected }) {
-  const [selectedOption, selectOption] = useState(selected)
+function CustomSelectBox ({ modelValue, onChange, items }) {
+  items = items || []
   return (
     <div className="custom-selector">
-      { options.map(option => {
+      { items.map(item => {
         return <div
-          key={option}
-          onClick={() => selectOption(option)}
-          className={option === selectedOption ? 'active' : '' }
-        >{option}</div>
+          key={item}
+          onClick={() => onChange(item)}
+          className={item === modelValue ? 'active' : '' }
+        >{item}</div>
       })}
     </div>
   )

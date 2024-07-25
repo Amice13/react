@@ -7,6 +7,7 @@ import Table from 'react-bootstrap/Table'
 import Stack from 'react-bootstrap/Stack'
 import Button from 'react-bootstrap/Button'
 import Accordion from 'react-bootstrap/Accordion'
+import EscalationsDeleteButton from '@/components/EscalationsDeleteButton'
 
 function Escalations () {
   const navigate = useNavigate()
@@ -18,7 +19,7 @@ function Escalations () {
           <Col>
             <a
               className="more-link fw-600 text-gray-600 d-flex align-items-center"
-              onClick={() => { navigate('/escalations')}}
+              onClick={() => { navigate('/')}}
             >
               <i className="bi bi-chevron-left me-2" style={{ fontSize: '28px'}}></i> View all escalations
             </a>
@@ -32,17 +33,16 @@ function Escalations () {
               </div>
               <div className="ms-auto">
                 <Button
-                  onClick={() => { navigate('/escalation') }}
+                  onClick={() => { navigate('/') }}
+                  className="ms-2"
                   variant="outline-black"
-                >Undo last action
+                >Close
                 </Button>
-              </div>
-              <div>
+                <EscalationsDeleteButton />
                 <Button
-                  onClick={() => { navigate('/escalation') }}
-                  className="btn-bg-primary"
+                  className="btn-bg-primary ms-2"
                   variant="outline-black"
-                >Action <i className="bi bi-chevron-down ms-2"></i>
+                >Edit
                 </Button>
               </div>
             </Stack>
