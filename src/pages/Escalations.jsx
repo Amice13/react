@@ -112,7 +112,7 @@ function Escalations () {
                           {escalation.fields?.['Urgent'] || ''}
                         </td>
                         <td>
-                          {escalation.fields?.['Date Raised'] ? escalation.fields?.['Date Raised'].toLocaleDateString() : ''}
+                          {escalation.fields?.['Date Raised'] ? new Date(escalation.fields?.['Date Raised']).toLocaleDateString() : ''}
                         </td>
                         <td>
                           {escalation.fields?.['Days Open'] || ''}
