@@ -22,8 +22,10 @@ function LayoutAccountSelector () {
         setWorksLoader(false)
         return false
       }
-      let currentWorks = await window.db.search('Works', { maxRecords: 100, pageSize: 100 })
-      if (currentContacts.records) setWorks(currentContacts.records)
+      if (window.db) {
+        let currentWorks = await window.db.search('Works', { maxRecords: 100, pageSize: 100 })
+        if (currentContacts.records) setWorks(currentContacts.records)        
+      }
       setWorksLoader(false)
     }
     fetchData()
