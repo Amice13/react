@@ -63,7 +63,7 @@ function Escalations () {
                       Inhouse legal advisor
                       <i className="bi table-header-icon bi-arrow-down-short ps-2" />
                     </th>
-                    <th width="10%">
+                    <th width="10%" class="text-no-wrap">
                       Status
                       <i className="bi table-header-icon bi-arrow-down-short ps-2" />
                     </th>
@@ -90,7 +90,7 @@ function Escalations () {
                           {escalation.fields?.['Short Description'] || ''}
                         </td>
                         <td>
-                          {escalation.fields?.['Matter Name'] || ''}
+                          {escalation.fields?.['Matter name'] || ''}
                         </td>
                         <td className="pe-4">
                           <select
