@@ -19,19 +19,19 @@ const setInitialData = (model) => {
 // Listen to change of data
 const target = new EventTarget()
 let requestChange
+
 if (window.Retool) {
-  if (!window.db) {
-    window.Retool.subscribe((model) => {
-      setInitialData(model)
-      // Skip data changes if the new request is set
-      if (requestChange) return false
-      if (model.results.length) {
-        let { hash, data } = model.results[model.results.length - 1]
-        model.results.pop()
-        target.dispatchEvent(new CustomEvent(hash, { detail: { data } }))
-      }
-    })
-  }
+  console.log('Retool is available')
+  window.Retool.subscribe((model) => {
+    setInitialData(model)
+    // Skip data changes if the new request is set
+    if (requestChange) return false
+    if (model.results.length) {
+      let { hash, data } = model.results[model.results.length - 1]
+      model.results.pop()
+      target.dispatchEvent(new CustomEvent(hash, { detail: { data } }))
+    }
+  })
 }
 
 // Default preparation of the query
@@ -83,5 +83,4 @@ const db = {
   }
 }
 
-console.log(db)
-window.db = db
+export default db

@@ -5,6 +5,7 @@ import generateWorks from '@faker/works'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { setAccount } from '@store/layout'
+import db from '@/db'
 
 function LayoutAccountSelector () {
   const dispatch = useDispatch()
@@ -22,10 +23,8 @@ function LayoutAccountSelector () {
         setWorksLoader(false)
         return false
       }
-      if (window.db) {
-        let currentWorks = await window.db.search('Works', { maxRecords: 100, pageSize: 100 })
-        if (currentContacts.records) setWorks(currentContacts.records)        
-      }
+      let currentWorks = await db.search('Works', { maxRecords: 100, pageSize: 100 })
+      if (currentContacts.records) setWorks(currentContacts.records)        
       setWorksLoader(false)
     }
     fetchData()

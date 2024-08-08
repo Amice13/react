@@ -7,7 +7,7 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
 import EscalationsControlPane from '@/components/EscalationsControlPane'
-
+import db from '@/db'
 import generateEscalations from '@faker/escalations'
 import generateContacts from '@faker/contacts'
 
@@ -32,9 +32,9 @@ function Escalations () {
         setEscalationsLoader(false)
         return false
       }
-      let currentContacts = await window.db.search('Contacts', { maxRecords: 100, pageSize: 100 })
+      let currentContacts = await db.search('Contacts', { maxRecords: 100, pageSize: 100 })
       if (currentContacts.records) setContacts(currentContacts.records)
-      let currentEscalations = await window.db.search('Escalations', { maxRecords: 100, pageSize: 10 })
+      let currentEscalations = await db.search('Escalations', { maxRecords: 100, pageSize: 10 })
       if (currentEscalations.records) setEscalations(currentEscalations.records)
       setEscalationsLoader(false)
     }

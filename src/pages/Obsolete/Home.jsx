@@ -9,6 +9,7 @@ import HomeAction from '@/components/HomeAction'
 import CustomScorecard from '@/components/CustomScorecard'
 import CustomHeader from '@/components/CustomHeader'
 import CustomReportCard from '@/components/CustomReportCard'
+import db from '@/db'
 
 function Home () {
   const navigate = useNavigate()
@@ -22,15 +23,15 @@ function Home () {
 
   useEffect(() => {
     async function fetchData() {
-      let currentReports = await window.db.search('Quaterly Reports', {})
+      let currentReports = await db.search('Quaterly Reports', {})
       if (currentReports.records) setReports(currentReports.records)
       setReportsLoader(false)
 
-      let currentActions = await window.db.search('Governance Actions', {})
+      let currentActions = await db.search('Governance Actions', {})
       if (currentActions.records) setActions(currentActions.records)
       setActionsLoader(false)
 
-      let currentEscalations = await window.db.search('Escalations', {})
+      let currentEscalations = await db.search('Escalations', {})
       if (currentEscalations.records) setEscalations(currentEscalations.records)
       setEscalationsLoader(false)
     }
