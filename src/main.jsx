@@ -1,8 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-
-// App definition
-import App from './App.jsx'
+import '@/db/index.jsx'
 
 // Global styles
 import './index.css'
@@ -12,6 +10,9 @@ import './App.scss'
 // React store
 import store from '@/store'
 import { Provider } from 'react-redux'
+
+// App definition
+import App from './App.jsx'
 
 // Fonts
 import '@fontsource-variable/work-sans'

@@ -83,4 +83,5 @@ const db = {
   }
 }
 
+console.log(db)
 window.db = db
