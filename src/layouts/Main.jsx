@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { useNavigate, useMatches } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Logo from '@/assets/logo.png'
@@ -16,9 +15,15 @@ import LayoutSiteTitle from '@/components/LayoutSiteTitle'
 
 const layout = ({ children }) => {
   const [key, setKey] = useState('/')
+  const currentUser = useSelector(({ layout }) => layout.usersId)
   const navigate = useNavigate()
+  useEffect(() => {
+    if (currentUser === -1) return navigate('/login')
+  }, [currentUser])
+
   const matches = useMatches()
   const pageName = matches?.[0].handle?.meta?.name || 'Home'
+
   const tabs = [
     { title: 'Escalations', path: '/' },
     { title: 'Playbooks', path: '/playbooks' }

@@ -20,15 +20,19 @@ export default defineConfig({
       }
     }
   },
-  base: 'https://amice13.github.io/react/',
+  // base: 'https://amice13.github.io/react/',
+  base: 'https://radiant.rodem.uz.ua',
   define: {
     'process.env': {
       IS_DEV: process.env.IS_DEV === 'TRUE',
+      APP_NAME: process.env.APP_NAME || 'test',
+      BACKEND_HOST: process.env.BACKEND_HOST
     }
   },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@api': fileURLToPath(new URL('./src/plugins/api', import.meta.url)),
       '@store': fileURLToPath(new URL('./src/store', import.meta.url)),
       '@faker': fileURLToPath(new URL('./src/plugins/faker', import.meta.url)),
       '@validators': fileURLToPath(new URL('./src/plugins/validators', import.meta.url)),

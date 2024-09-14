@@ -1,15 +1,18 @@
+// Base react
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import '@/db/index.jsx'
+
+// React store
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+import storeSetup from '@/store'
+
+const { store, persistor } = storeSetup()
 
 // Global styles
 import './index.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import './App.scss'
-
-// React store
-import store from '@/store'
-import { Provider } from 'react-redux'
 
 // App definition
 import App from './App.jsx'
@@ -22,6 +25,8 @@ const rootComponent = window.Retool ? 'react' : 'root'
 
 ReactDOM.createRoot(document.getElementById(rootComponent)).render(
   <Provider store={store}>
-    <App />
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>
 )

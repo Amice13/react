@@ -8,6 +8,19 @@ import PlaybookSelector from '@/components/PlaybookSelector'
 import { useSelector, useDispatch } from 'react-redux'
 import { setSearch, setFilter } from '@store/escalations'
 
+function debounce (fn, delay = 1000) {
+  let timeoutID = null
+  return function () {
+    clearTimeout(timeoutID)
+    let args = arguments
+    let that = this
+    timeoutID = setTimeout(function () {
+      console.log('hlah')
+      fn.apply(that, args)
+    }, delay)
+  }
+}
+
 function EscalationsControlPane () {
   const dispatch = useDispatch()
   const search = useSelector(({ escalations }) => escalations.search)
@@ -26,7 +39,7 @@ function EscalationsControlPane () {
             <div className="input-group" style={{ width: '300px' }}>
               <input
                 value={search}
-                onChange={(event) => { dispatch(setSearch(event.target.value)) }}
+                onChange={(event) => { debounce(() => { dispatch(setSearch(event.target.value)) })() }}
                 type="text"
                 className="form-control"
                 placeholder="Search..."

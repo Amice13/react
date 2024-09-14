@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import Modal from 'react-bootstrap/Modal'
 
-function PlaybookDialog ({ open, onClose }) {
+function PlaybookDialog ({ item, open, onClose }) {
   return (
     <Modal
       show={open}
@@ -11,50 +11,35 @@ function PlaybookDialog ({ open, onClose }) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="example-custom-modal-styling-title">
-          10. Confidentiality (in general)
+          {item.playbookPartsName}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className="px-4">
-        <div className="bg-tertiary-100 py-2 px-3 my-4">
-          <p><strong>Last Updated:</strong> <span>05/04/2024</span></p>
-          <p><strong>Clause:</strong> <span>Confidentiality (in general)</span></p>
+        <div className="py-1 px-2 my-2">
           <p>
+            <strong>Last Updated:</strong> <span>{ new Date(item.updatedAt || item.createdAt).toLocaleDateString() }</span>
+          </p>
+          {item.primaryClausesName && <p><strong>Clause:</strong> <span>{item.primaryClausesName}</span></p>}
+          {item.secondaryClausesName && <p className="pre-text">
             <strong>Sub-Clause:</strong><br />
-            4.1. Ipsum molestiae natus adipisci modi eligendi? Debitis amet quae unde
-            commodi aspernatur enim, consectetur. Cumque deleniti temporibus
-            ipsam atque a dolores quisquam quisquam adipisci possimus
-            laboriosam. Quibusdam facilis doloribus debitis! Sit quasi quod
-            accusamus eos quod. Ab quos consequuntur eaque quo rem! Mollitia
-            reiciendis porro quo magni incidunt dolore amet atque facilis ipsum
-            deleniti rem!
-          </p>
-        </div>
-        <div>
-          <p>
+            {item.secondaryClausesNumber} {item.secondaryClausesName}
+          </p>}
+          {item.description && <p>
             <strong>Issue</strong><br />
-            Request to make changes
-          </p>
-          <p>
+            {item.description}
+          </p>}
+          {item.action && <p>
             <strong>Action</strong><br />
-            Ipsum molestiae natus adipisci modi eligendi? Debitis amet quae unde
-            commodi aspernatur enim, consectetur. Cumque deleniti temporibus
-          </p>
-          <p>
+            {item.action}
+          </p>}
+          {item.reason && <p>
             <strong>Reason</strong><br />
-            Ipsum molestiae natus adipisci modi eligendi? Debitis amet quae unde
-            commodi aspernatur enim, consectetur. Cumque deleniti temporibus
-            ipsam atque a dolores quisquam quisquam adipisci possimus
-            laboriosam. Quibusdam facilis doloribus debitis! Sit quasi quod
-            accusamus eos quod. Ab quos consequuntur eaque quo rem!
-          </p>
-          <p>
+            {item.reason}
+          </p>}
+          {item.comment && <p>
             <strong>Comment (external)</strong><br />
-            Ipsum molestiae natus adipisci modi eligendi? Debitis amet quae unde
-            commodi aspernatur enim, consectetur. Cumque deleniti temporibus
-            ipsam atque a dolores quisquam quisquam adipisci possimus
-            laboriosam.
-          </p>
-
+            {item.comment}
+          </p>}
         </div>
       </Modal.Body>
     </Modal>

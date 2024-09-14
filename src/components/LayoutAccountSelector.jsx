@@ -1,36 +1,31 @@
 import { useState, useEffect } from 'react'
+import { $api } from '@api'
+
 import Dropdown from 'react-bootstrap/Dropdown'
 import Button from 'react-bootstrap/Button'
 import generateWorks from '@faker/works'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { setAccount } from '@store/layout'
-import db from '@/db'
+import { setClient } from '@store/layout'
 
 function LayoutAccountSelector () {
   const dispatch = useDispatch()
-  const account = useSelector(({ layout }) => layout.account)
+  const client = useSelector(({ layout }) => layout.client)
   const [showDropdown, setDropdown] = useState(false)
-  const [worksLoader, setWorksLoader] = useState(true)
-  const [works, setWorks] = useState([])
-
+  const [clients, setClients] = useState([])
 
   useEffect(() => {
     async function fetchData() {
-      if (process.env.IS_DEV) {
-        let currentWorks = generateWorks(30)
-        setWorks(currentWorks.records)
-        setWorksLoader(false)
-        return false
+      const res = await $api.data.query('clients', { limit: 1000 })
+      if (res.status === 'success') {
+        const { records } = res.data
+        setClients(records)
       }
-      let currentWorks = await db.search('Works', { maxRecords: 100, pageSize: 100 })
-      if (currentContacts.records) setWorks(currentContacts.records)        
-      setWorksLoader(false)
     }
     fetchData()
   }, [])
 
-  let buttonTitle = account === 'All accounts' ? 'Select account' : account
+  let buttonTitle = client === 'All accounts' ? 'Select account' : client
   return (
     <div className="ms-auto">
       <Dropdown
@@ -46,12 +41,17 @@ function LayoutAccountSelector () {
           style={{ position: 'absolute', top: '40px', right: '0px', maxHeight: '70vh', overflow: 'auto' }}
         >
           <Dropdown.Header>
-            <div><strong>Selet account</strong></div>
+            <div><strong>Select account</strong></div>
           </Dropdown.Header>
-          <Dropdown.Item onClick={() => { dispatch(setAccount('All accounts')) }}>All accounts</Dropdown.Item>
-          {works.map(work => {
+          <Dropdown.Item onClick={() => { dispatch(setClient(null)) }}>All accounts</Dropdown.Item>
+          {clients.map(client => {
             return (
-                <Dropdown.Item onClick={() => { dispatch(setAccount(work.fields?.Name)) }} key={work.id}>{work.fields?.Name || '' }</Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => { dispatch(setClient(client)) }}
+                  key={client.id}
+                >
+                  {client.name || '' }
+                </Dropdown.Item>
               )
           })}
         </Dropdown.Menu>

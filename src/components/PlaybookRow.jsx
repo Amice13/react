@@ -6,9 +6,9 @@ function PlaybookRow ({ item }) {
   const [showPlaybookDialog, setPlaybookDialog] = useState(false)
   return (
     <tr>
-      <td className="px-2 py-4">{ item.ref }</td>
-      <td>{ item.clauseName }</td>
-      <td>{ item.issue }</td>
+      <td className="px-2 py-4">{ item.primaryClausesNumber }</td>
+      <td>{ item.primaryClausesName }</td>
+      <td>{ item.description }</td>
       <td>{ item.action }</td>
       <td>{ item.reason }</td>
       <td>{ item.comment }</td>
@@ -19,7 +19,7 @@ function PlaybookRow ({ item }) {
           size="sm"
         >View Details</Button>
       </td>
-      <PlaybookDialog open={showPlaybookDialog} onClose={() => setPlaybookDialog(false)} />
+      <PlaybookDialog item={item} open={showPlaybookDialog} onClose={() => setPlaybookDialog(false)} />
     </tr>
   )
 }

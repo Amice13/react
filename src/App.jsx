@@ -1,6 +1,5 @@
 import router from '@/router'
-import { Outlet, Router, RouterProvider } from 'react-router-dom'
-import Layout from './layouts/main.jsx'
+import { RouterProvider } from 'react-router-dom'
 
 function App() {
   return (

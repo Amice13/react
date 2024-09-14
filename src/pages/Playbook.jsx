@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -9,16 +9,104 @@ import Stack from 'react-bootstrap/Stack'
 import Accordion from 'react-bootstrap/Accordion'
 import PlaybookRow from '@/components/PlaybookRow'
 
-function Escalations () {
+import { $api } from '@api'
+
+const headers = [
+  { title: 'Ref', value: 'primaryClausesNumber', sortable: true },
+  { title: 'Clause name', value: 'primaryClausesName', sortable: true },
+  { title: 'Issue', value: 'description', sortable: true },
+  { title: 'Action', value: 'action' },
+  { title: 'Reason (internal)', value: 'reason' },
+  { title: 'Comment (external)', value: 'comment' },
+  { title: '', value: 'button' },
+]
+
+function Playbook () {
   const navigate = useNavigate()
+  let { id } = useParams()
+  let [issues, setIssues] = useState([])
+  const [playbookLoader, setPlaybookLoader] = useState(true)
+  const [issuesDefinition, setIssuesDefinition] = useState({
+    query: '',
+    queryField: 'description',
+    sort: undefined,
+    sortOrder: undefined
+  })
+
+  useEffect(() => {
+    async function fetchData() {
+      setPlaybookLoader(true)
+      const res = await $api.data.getById('playbooks', id)
+      if (res.status === 'success') setIssues(res.data)
+      setPlaybookLoader(false)
+      if (!res.data.length) navigate('/playbooks')
+      if (!issuesDefinition?.filters?.primaryClausesName) {
+        issuesDefinition.filters = { primaryClausesName: [res.data[0].primaryClausesName] }
+      }
+    }
+    fetchData()
+  }, [id])
+  
+  const playbookName = issues?.[0]?.playbooksName || 'Not found'
+  const parts = []
+  const clausesKeys = []
+  const clauses = []
+
+  for (let issue of issues) {
+    if (issue.playbookPartsName && !parts.includes(issue.playbookPartsName)) parts.push(issue.playbookPartsName)
+    const clause = (issue.primaryClausesNumber ? `${issue.primaryClausesNumber}. ` : '') + issue.primaryClausesName
+    if (clausesKeys.includes(clause)) continue
+    clausesKeys.push(clause)
+    clauses.push({ name: clause, part: issue.playbookPartsName, primaryClausesName: issue.primaryClausesName})
+  }
+
+  const setDefinition = (value) => {
+    setIssuesDefinition(state => {
+      const newState = Object.assign({}, state, value)
+      return newState
+    })
+  }
+
+  let issuesToShow = JSON.parse(JSON.stringify(issues))
+
+  if (issuesDefinition.filters) {
+    issuesToShow = issuesToShow.filter(el => {
+      for (let [key, values] of Object.entries(issuesDefinition.filters)) {
+        if (!values.includes(el[key])) return false
+      }
+      return true
+    })
+  }
+
+  if (issuesDefinition.query) {
+    const query = issuesDefinition.query.toLowerCase()
+      .replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
+      .replace(/-/g, '\\x2d')
+
+    const regex = new RegExp(query, 'i')
+    issuesToShow = issuesToShow.filter(issue => {
+      if (!issue[issuesDefinition.queryField]) return false
+      return issue[issuesDefinition.queryField].match(regex)
+    })
+  }
+
+  if (issuesDefinition.sort) {
+    issuesToShow.sort((a, b) => {
+      const nameA = a[issuesDefinition.sort]
+      const nameB = b[issuesDefinition.sort]
+      if (!nameA || !nameB) return 0
+      return issuesDefinition.sortOrder !== 'desc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA)
+    })    
+  }
+
   return (
     <>
       <Container fluid>
         <Row className="py-2 px-3">
           <Col>
             <a
-              className="more-link fw-600 text-gray-600 d-flex align-items-center"
-              onClick={() => { navigate('/escalations')}}
+              className="more-link cursor-pointer fw-600 text-gray-600 d-flex align-items-center"
+              onClick={() => { navigate('/playbooks')}}
             >
               <i className="bi bi-chevron-left me-2" style={{ fontSize: '28px'}}></i> View all Playbooks
             </a>
@@ -28,12 +116,14 @@ function Escalations () {
           <Col>
             <Stack direction="horizontal" gap={3}>
               <div className="text-gray-800">
-                <h3 className="fw-600">Playbook: [Customer] Framework Agreement</h3>
+                <h3 className="fw-600">Playbook: {playbookName}</h3>
               </div>
               <div className="ms-auto">
                 <div className="input-group">
                   <input
                     type="text"
+                    defaultValue={setDefinition.query}
+                    onChange={event => setDefinition({ query: event.target.value })}
                     className="form-control border-end-0"
                     placeholder="Search"
                     aria-label="from"
@@ -47,53 +137,63 @@ function Escalations () {
         </Row>
         <Row className="py-2 mx-3" style={{ borderTop: '1px solid #DDD' }}>
           <Col className="col-2" style={{ borderRight: '1px solid #DDD' }}>
-            <div className="mb-3">
-              <div className="fw-600">Framework Terms</div>
-            </div>
-            <div className="text-gray-800 rounded-2 ps-3 py-2">1. Definitions</div>
-            <div className="text-gray-800 rounded-2 ps-3 py-2">2. Interpretation</div>
-            <div className="text-gray-800 rounded-2 ps-3 py-2">3. Term</div>
-            <div className="text-gray-800 rounded-2 ps-3 py-2">4. Provision Of Services</div>
-            <div className="text-gray-800 rounded-2 ps-3 py-2">5. Code Of Conduct</div>
-            <div className="text-gray-800 rounded-2 ps-3 py-2">6. Supplier Personnel</div>
-            <div className="text-gray-800 rounded-2 ps-3 py-2">7. Acceptance</div>
-            <div className="text-gray-800 rounded-2 ps-3 py-2">8. Warranties</div>
-            <div className="text-gray-800 rounded-2 ps-3 py-2">9. Charges And Payments</div>
-            <div className="bg-gray-800 text-white rounded-2 ps-3 py-2">
-              10. Confidentiality
-            </div>
-            <div className="text-gray-800 rounded-2 ps-3 py-2">11. Data Protection</div>
-            <div className="text-gray-800 rounded-2 ps-3 py-2">12. Information Security</div>
-            <div className="text-gray-800 rounded-2 ps-3 py-2">13. Intellectual Property</div>
-            <div className="my-3">
-              <div className="fw-600">Service-Specific Terms</div>
-            </div>
-            <div className="text-gray-800 rounded-2 ps-3 py-2">1. Definitions</div>
-            <div className="text-gray-800 rounded-2 ps-3 py-2">2. License And Usage</div>
+            {parts.map(part => {
+              return (
+                <div key={part}> 
+                  <div className="mb-3">
+                    <div className="fw-600">{part}</div>
+                  </div>
+                  {clauses.filter(clause => clause.part === part).map(clause => {
+                    let active = issuesDefinition.filters.primaryClausesName.includes(clause.primaryClausesName)
+                    active = active ? 'active' : ''
+                    return (
+                      <div
+                        key={clause.name}
+                        className={`text-gray-800 rounded-2 ps-3 py-2 mb-1 playbook-link cursor-pointer ${active}`}
+                        onClick={() => {setDefinition({ filters: { primaryClausesName: [clause.primaryClausesName] }})}}
+                      >
+                        {clause.name}
+                      </div>
+                    )
+                  })}
+                </div>
+              )
+            })}
           </Col>
           <Col className="col-10">
-            <Table responsive className="radiant-table">
+            <Table responsive className="radiant-table vertical-align-baseline">
               <thead>
-                <tr>
-                  <th width="5%">Ref</th>
-                  <th width="15%">Clause name</th>
-                  <th width="15%">Issue</th>
-                  <th width="15%">Action</th>
-                  <th>Reason (internal)</th>
-                  <th width="15%">Comment (external)</th>
-                  <th width="10%"></th>
+                <tr className="text-no-wrap">
+                  {headers.map(header => {
+                    const isSorted = issuesDefinition.sort === header.value
+                    const sortOrder = isSorted && issuesDefinition.sortOrder === 'desc' ? 'asc' : 'desc'
+                    return (
+                      <th key={header.value}>
+                        <span
+                          className={`${header.sortable} ${header.sortable ? 'cursor-pointer' : ''}`}
+                          onClick={() => {
+                            if (header.sortable) setDefinition({
+                              sort: header.value,
+                              sortOrder
+                            })
+                          }}
+                        >
+                          {header.title}
+                        </span>
+                        {header.sortable && <i
+                          className={`${isSorted ? 'text-black' : ''} bi table-header-icon ${sortOrder === 'desc' ? 'bi-arrow-down-short' : 'bi-arrow-up-short'} ps-2`}
+                        />}
+                      </th>
+                    )
+                  })}
                 </tr>
               </thead>
               <tbody>
-                <PlaybookRow item={{
-                  ref: 10,
-                  clauseName: 'Confidentiality (in general)',
-                  issue: 'Request to make changes',
-                  action: 'Seek to adopt the wording of template clause wherever possible',
-                  reason: 'It is a regulatory requirement that Company takes the necessary steps to ensure',
-                  comment: 'It is a regulatory requirement that Company takes',
-                  id: 1
-                }} />
+                {issuesToShow.map(issue => {
+                  return (
+                    <PlaybookRow key={issue.id} item={issue} />
+                  )
+                })}
               </tbody>
             </Table>
           </Col>
@@ -103,4 +203,4 @@ function Escalations () {
   )
 }
 
-export default Escalations
+export default Playbook

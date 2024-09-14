@@ -8,6 +8,8 @@ import RadiantTextField from '@/components/RadiantTextField'
 import RadiantTextarea from '@/components/RadiantTextarea'
 import RadiantSelect from '@/components/RadiantSelect'
 
+import { $api } from '@api'
+
 const defaultState = {
   matterName: '',
   matterId: '',
@@ -27,13 +29,45 @@ const defaultState = {
 function EscalationsAddDialog ({ initialState, open, onClose }) {
   const [mode, setMode] = useState('Add New')
   const [state, setState] = useState({})
+  const [playbooks, setPlaybooks] = useState([])
+  const [primaryClauses, setPrimaryClauses] = useState([])
+
   useEffect(() => {
+    async function fetchData() {
+      const playbooksRequest = await $api.data.query('playbooks', { limit: 1000 })
+      if (playbooksRequest.status === 'success') {
+        const { records } = playbooksRequest.data
+        if (records) setPlaybooks(records)
+      }
+    }
+    fetchData()
     if (initialState) {
       setMode('Edit')
       return setState(initialState)
     }
-    return setState(defaultState)
-  })
+    return setState(JSON.parse(JSON.stringify(defaultState)))
+  },[])
+
+  useEffect(() => {
+    async function fetchData() {
+      if (!state.playbook) return setPrimaryClauses([])
+      const primaryClausesRequest = await $api.data.query('primary-clauses', {
+        limit: 1000,
+        filters: { playbooksId: [state.playbook] }
+      })
+      if (primaryClausesRequest.status === 'success') {
+        let { records } = primaryClausesRequest.data
+        records = records.map(el => {
+          let name = (el.number ? el.number + ' ' : '')
+          name = name + el.name
+          el.name = name
+          return el
+        })
+        if (records) setPrimaryClauses(records)
+      }
+    }
+    fetchData()
+  },[state.playbook])
 
   return (
     <Modal
@@ -102,26 +136,34 @@ function EscalationsAddDialog ({ initialState, open, onClose }) {
                   modelValue={state.playbook}
                   onChange={event => setState(state => { return { ...state, playbook: event }})}
                   label="Playbook *"
-                  items={['Yes', 'No']}
+                  items={playbooks}
+                  itemTitle="name"
+                  itemValue="id"
+                  allowUndefined={true}
+                  undefinedTitle="Select..."
                   id="playbook"
                   name="playbook"
                 />
-                <RadiantSelect
+                {state.playbook && <RadiantSelect
                   modelValue={state.primaryClause}
                   onChange={event => setState(state => { return { ...state, primaryClause: event }})}
                   label="Primary clause/Theme *"
-                  items={['Yes', 'No']}
+                  items={primaryClauses}
+                  itemTitle="name"
+                  itemValue="id"
+                  allowUndefined={true}
+                  undefinedTitle="Select..."
                   id="primaryClause"
                   name="primaryClause"
-                />
-                <RadiantTextField
+                />}
+                {state.primaryClause && <RadiantTextField
                   modelValue={state.issue}
                   onChange={event => setState(state => { return { ...state, issue: event }})}
                   placeholder="[Customer] - Framework Agreement"
                   label="Issue *"
                   id="issue"
                   name="issue"
-                />
+                />}
                 <RadiantTextarea
                   modelValue={state.counterpartyMarkup}
                   onChange={event => setState(state => { return { ...state, counterpartyMarkup: event }})}
@@ -148,14 +190,16 @@ function EscalationsAddDialog ({ initialState, open, onClose }) {
                 />                
               </div>
             }
-            <RadiantTextarea
-              modelValue={state.radiantRecommendation}
-              onChange={event => setState(state => { return { ...state, radiantRecommendation: event }})}
-              label="Radiant's Recommendation"
-              id="radiantRecommendation"
-              name="radiantRecommendation"
-              rows="2"
-            />
+            {state.urgent === 'Yes' &&
+              <RadiantTextarea
+                modelValue={state.radiantRecommendation}
+                onChange={event => setState(state => { return { ...state, radiantRecommendation: event }})}
+                label="Radiant's Recommendation"
+                id="radiantRecommendation"
+                name="radiantRecommendation"
+                rows="2"
+              />
+            }
           </Form>
           <Stack direction="horizontal" gap={3}>
             <div className="ms-auto mt-2">

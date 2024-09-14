@@ -9,7 +9,9 @@ function RadiantSelect ({
   itemTitle,
   itemValue,
   type,
-  returnObject
+  returnObject,
+  allowUndefined,
+  undefinedTitle
 }) {
   // Processing of the item list
   items = items || []
@@ -46,6 +48,7 @@ function RadiantSelect ({
           aria-label="from"
           aria-describedby="from"
         >
+          {allowUndefined && <option value={undefined}>{undefinedTitle}</option>}
           { items.map(item => {
             return (
               <option key={item[itemValue]} value={item[itemValue]}>{item[itemTitle]}</option>
