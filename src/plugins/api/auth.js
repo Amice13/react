@@ -3,6 +3,7 @@
 */ 
 
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 export const instance = axios.create({
   baseURL: process.env.BACKEND_HOST ? process.env.BACKEND_HOST : 'http://localhost:3000/api/v1',
@@ -51,6 +52,7 @@ export const logout = async () => {
   instance.defaults.headers.common.Authorization = ''
   document.cookie = 'Authorization= ; expires = Thu, 01 Jan 1970 00:00:00 GMT'
   store.dispatch(setUsersId(-1))
+  useNavigate('./login')
 }
 
 // Function to login

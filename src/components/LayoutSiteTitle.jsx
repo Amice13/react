@@ -6,7 +6,7 @@ function LayoutAccountSelector ({ pageName }) {
   // If not authenticated return login page
   const name = typeof usersId === 'number' && usersId >= 0 ? `${client} - ${pageName}` : 'Radiant Law'
   return (
-    <h3 className="mb-0">{name}</h3>
+    <h4 className="mb-0">{name}</h4>
   )
 }
 

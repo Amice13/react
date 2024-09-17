@@ -12,6 +12,7 @@
 
 html, body, #root {
   height: 100%;
+  background-color: #FBFBFB;
 }
 
 /* GLOBAL CUSTOM STYLES */
@@ -287,7 +288,7 @@ blockquote {
   overflow: hidden;
 }
 .logo {
-  height: 50px;
+  height: 52px;
   overflow: hidden;
 }
 
@@ -327,11 +328,11 @@ blockquote {
 }
 
 .nav-item button {
-  border-radius: 0px !important;
   background-color: #F2F2F2;
   color: #B1B1B1;
   height: 41px;
-  box-shadow: 0px 4px 32px 0px #B1B1B152;
+  border: none !important;
+  box-shadow: rgba(177, 177, 177, 0.2) 0px 2px 4px 2px !important;
 }
 
 .tab-content {
@@ -350,7 +351,6 @@ blockquote {
 }
 
 .nav-item button.active {
-  font-weight: bold;
   background-color: #FFF !important;
 }
 
@@ -363,7 +363,7 @@ blockquote {
 }
 
 .scorecard {
-  box-shadow: 0px 8px 32px 0px #B1B1B152;
+  border: 1px solid #DDD;
   background-color: #FFF;
   border-radius: 12px;
   padding: 16px 24px;
@@ -416,6 +416,25 @@ blockquote {
   color: #FFB200;
 }
 
+.custom-navbar {
+  background-color: #FFF;
+  border-bottom: 1px solid #DDD;
+}
+
+.main-avatar {
+  display: block;
+  display: flex;
+  background-color: var(--bs-primary);
+  align-items: center;
+  font-family: 'Lato';
+  justify-content: center;
+  font-size: 15px;
+  width: 40px;
+  height: 40px;
+  font-weight: 700;
+  border-radius: 50%;  
+}
+
 .icon-avatar i {
   display: block;
   display: flex;
@@ -445,14 +464,10 @@ a.more-link {
 
 .tab-content {
   margin-top: 0px !important;
-}
-
-.tab-content {
   flex-basis: 20px;
   -webkit-flex-grow: 1;
   -webkit-flex-shrink: 1;
   margin: 15px;
-  overflow-y: auto;
 }
 
 .tab-content::-webkit-scrollbar {
@@ -677,4 +692,31 @@ th {
 
 .w-100 {
   width: 100%;
+}
+
+/* Custom tabs */
+
+.nav-item.active {
+  z-index: 100;
+  box-shadow: none !important;
+}
+
+.nav-link.active {
+  box-shadow: none;
+  position: relative;
+}
+
+.nav-tabs {
+  border-bottom: none !important;
+}
+
+.custom-nav.nav-link {
+  border-top-left-radius: 5px !important;
+  border-top-right-radius: 5px !important;
+  z-index: 0;
+}
+
+.tab-content {
+  box-shadow: rgba(177, 177, 177, 0.2) 0px 4px 4px 2px !important;
+  z-index: 1;
 }

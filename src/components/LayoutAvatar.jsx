@@ -31,16 +31,15 @@ function LayoutAvatar ({ name, href }) {
     navigate('/login')
   }
 
-  useEffect(() => {
-  let userImage = user.userImage ? user.userImage.replace(/=[^=]+$/, '') : 'https://avatar.iran.liara.run/public'
-    const getImage = async () => {
-      if (!userImage || !userImage.match(/googleusercontent/)) return setImage(userImage)
-      const image = await imageUrlToBase64(userImage)
-      return setImage(image)
-    }
-
-    getImage()    
-  }, [])
+  // useEffect(() => {
+  //   let userImage = user.userImage ? user.userImage.replace(/=[^=]+$/, '') : 'https://avatar.iran.liara.run/public'
+  //   const getImage = async () => {
+  //     if (!userImage || !userImage.match(/googleusercontent/)) return setImage(userImage)
+  //     const image = await imageUrlToBase64(userImage)
+  //     return setImage(image)
+  //   }
+  //   getImage()    
+  // }, [])
 
   return (
     <div className="avatar">
@@ -50,13 +49,19 @@ function LayoutAvatar ({ name, href }) {
         style={{ position: 'relative' }}
       >
         <div>{ showDropdown }</div>
-        <Image
+        <div
+          className="rounded-circle main-avatar cursor-pointer bg-primary-900"
+          onClick={() => setDropdown(true)}
+        >
+          {user.username.match(/(?<=^| )./g).slice(0, 2).join('')}
+        </div>
+{/*        <Image
           onClick={() => setDropdown(true)}
           src={image}
           style={{ cursor: 'pointer' }}
           className="rounded-circle"
           width="40"
-        />
+        />*/}
         <Dropdown.Menu
           style={{ position: 'absolute', top: '40px', right: '0px' }}
         >

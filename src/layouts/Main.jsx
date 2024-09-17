@@ -37,11 +37,19 @@ const layout = ({ children }) => {
   return (
     <>
     <div className="h-100 d-flex flex-column">
-      <div className="w-100">
-      <Container fluid>
+      <div
+        className="w-100 bg-white custom-navbar"
+      >
+      <Container
+        fluid
+        style={{ padding: '8px 24px' }}
+      >
         <Row className="h-100 d-flex">
           <Col>
-            <Stack direction="horizontal" gap={3}>
+            <Stack
+              direction="horizontal"
+              gap={3}
+            >
               <div className="logo-holder">
                 <a href="https://vitejs.dev" target="_blank">
                   <img src={Logo} className="logo" alt="Radiant logo" />
@@ -56,12 +64,12 @@ const layout = ({ children }) => {
         </Row>
       </Container>
       </div>
-      <div className="h-100">
-        <Container fluid className="h-100">
+      <div className="h-100 my-3 mx-4">
+        <Container fluid className="h-100 mx-1">
           <Row className="h-100">
             <Col>
               <div className="h-100 d-flex flex-column pb-2">
-                <ul className="mx-2 nav nav-tabs" id="controlled-tab-example" role="tablist">
+                <ul className="mx-4 nav nav-tabs" id="controlled-tab-example" role="tablist">
                   {tabs.map((tab) => {
                     return (
                       <li key={tab.path} className="nav-item" role="presentation">
@@ -72,7 +80,7 @@ const layout = ({ children }) => {
                           role="tab"
                           aria-controls={`controlled-tab-tab-${tab.path}`}
                           aria-selected="true"
-                          className={`nav-link ${ tab.path === matches[0].pathname ? 'active' : '' }`}>{tab.title}</button>
+                          className={`custom-nav nav-link ${ tab.path === matches[0].pathname ? 'active' : '' }`}>{tab.title}</button>
                       </li>
                     )
                   })}

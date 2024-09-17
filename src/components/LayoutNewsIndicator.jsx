@@ -7,7 +7,7 @@ function LayoutAvatar ({ name, href }) {
   const [showDropdown, setDropdown] = useState(false)
   return (
     <div className="position-relative">
-      <i className="bi bi-bell-fill" style={{ fontSize: '24px' }}></i>
+      <i className="bi bi-bell-fill text-gray-600" style={{ fontSize: '22px', color: 'grey' }}></i>
       <div id="redDot"></div>
     </div>
   )
