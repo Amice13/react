@@ -25,8 +25,8 @@ const layout = ({ children }) => {
   const pageName = matches?.[0].handle?.meta?.name || 'Home'
 
   const tabs = [
-    { title: 'Escalations', path: '/' },
-    { title: 'Playbooks', path: '/playbooks' }
+    { title: 'Escalations', path: '/', regex: /\/escalation/ },
+    { title: 'Playbooks', path: '/playbooks', regex: /\/playbook/ }
   ]
 
   const goTo = (path) => {
@@ -68,7 +68,7 @@ const layout = ({ children }) => {
         <Container fluid className="h-100 mx-1">
           <Row className="h-100">
             <Col>
-              <div className="h-100 d-flex flex-column pb-2">
+              <div className="d-flex flex-column pb-2">
                 <ul className="mx-4 nav nav-tabs" id="controlled-tab-example" role="tablist">
                   {tabs.map((tab) => {
                     return (
@@ -80,7 +80,7 @@ const layout = ({ children }) => {
                           role="tab"
                           aria-controls={`controlled-tab-tab-${tab.path}`}
                           aria-selected="true"
-                          className={`custom-nav nav-link ${ tab.path === matches[0].pathname ? 'active' : '' }`}>{tab.title}</button>
+                          className={`custom-nav nav-link ${ tab.path === matches[0].pathname || matches[0].pathname.match(tab.regex) ? 'active' : '' }`}>{tab.title}</button>
                       </li>
                     )
                   })}

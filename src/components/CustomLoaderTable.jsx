@@ -1,10 +1,9 @@
 import React from 'react'
 import ContentLoader from 'react-content-loader'
 
-const BootstrapCardDataTable = props => {
+const CustomLoaderTable = props => {
   return (
     <ContentLoader
-      className="my-4"
       viewBox="0 0 1120 140"
       backgroundColor="rgba(0,0,0,0.12)"
       foregroundColor="rgba(0,0,0,0.18)"
@@ -68,12 +67,4 @@ const BootstrapCardDataTable = props => {
   )
 }
 
-BootstrapCardDataTable.metadata = {
-  name: 'Shaheer Ali',
-  github: 'itsmeshaheerali',
-  description:
-    'This loader exactly fit inside your bootrstrap card component no override happens like existing DataTable Loader',
-  filename: 'BootstrapCardDataTable',
-}
-
-export default BootstrapCardDataTable
+export default CustomLoaderTable

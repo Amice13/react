@@ -26,16 +26,7 @@ const channel = new BroadcastChannel(channelName)
 // List of paths to ignore (related to auth only)
 const pathsToIgnore = [
   '/auth/initialize',
-  '/auth/register',
-  '/auth/confirm',
-  '/auth/login',
-  '/auth/sms-verify',
-  '/auth/msal-verify',
-  '/auth/email-verify',
-  '/auth/recover',
-  '/auth/set-password',
-  '/auth/totp-set',
-  '/auth/totp-verify',
+  '/auth/google-verify',
   '/auth/refresh'
 ]
 

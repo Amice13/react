@@ -39,7 +39,7 @@ function Escalations () {
               className="more-link fw-600 text-gray-600 d-flex align-items-center"
               onClick={() => { navigate('/')}}
             >
-              <i className="bi bi-chevron-left me-2" style={{ fontSize: '28px'}}></i> View all escalations
+              <i className="bi bi-arrow-left me-2" style={{ fontSize: '28px'}}></i> View all escalations
             </a>
           </Col>
         </Row>

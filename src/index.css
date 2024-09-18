@@ -142,7 +142,6 @@ p {
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 1px;
-  font-weight: 400;
 }
 
 strong, .text-bold {
@@ -276,6 +275,17 @@ blockquote {
   box-shadow: 0 0 0 0.25rem rgba(254, 225, 1, 0.25);
 }
 
+.yellow-input.form-control:focus,
+.yellow-input.form-control:hover {
+  border-color: var(--bs-primary) !important;
+  box-shadow: none;  
+}
+
+input.form-control::placeholder {
+  color: #AAA;
+  font-size: 14px;
+}
+
 .radiant-input option {
   padding:5px 0;
 }
@@ -389,23 +399,27 @@ blockquote {
 }
 
 .radiant-table thead, .radiant-table th {
-  background-color: #F2F2F299;
+  background-color: #F8FAFB !important;
 }
 
 .radiant-table th {
   font-weight: 400;
   text-transform: uppercase;
   color: #8E95A9;
-  font-size: 0.8em;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 28px 12px !important;
+  color: rgb(171 181 190);
 }
 
 .radiant-table tr {
-  font-weight: 600;
+  font-weight: 400;
   font-size: 0.8em;
 }
 
 .radiant-table td {
   vertical-align: middle;
+  padding: 8px 28px 12px !important;
 }
 
 .align-center {
@@ -460,6 +474,8 @@ blockquote {
 
 a.more-link {
   text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .tab-content {
@@ -486,7 +502,7 @@ a.more-link {
 
 .custom-selector {
   display: inline-block;
-  background-color: #F9FAFB;
+  background-color: #F2F3F3;
   border-radius: 38px;
   padding: 4px;
 }
@@ -500,7 +516,7 @@ a.more-link {
   font-weight: bold;
   display: inline-block;
   background-color: #F2F2F2;
-  padding: 7px 24px;
+  padding: 10px 28px;
   border-radius: 40px;
 }
 
@@ -669,10 +685,6 @@ a.more-link {
   justify-content: center;
 }
 
-th {
-  width: 15%;
-}
-
 .radiant-table.vertical-align-baseline td {
   vertical-align: baseline;
 }
@@ -681,13 +693,16 @@ th {
   cursor: pointer;
 }
 
-.playbook-link:hover {
-  background-color: var(--bs-primary-100);
+.playbook-link {
+  background-color: #F8FAFB;
+  font-size: 14px;
 }
 
 .playbook-link.active {
-  color: #FFF !important;
-  background-color: var(--bs-gray-700) !important;
+  color: #000 !important;
+  font-weight: bold;
+  border-left: 2px solid #FEE000;
+  background-color: #FDF5E7;
 }
 
 .file-btn:hover {
@@ -727,4 +742,29 @@ th {
 .tab-content {
   box-shadow: rgba(177, 177, 177, 0.2) 0px 4px 4px 2px !important;
   z-index: 1;
+}
+
+.btn {
+  transition: 0.15s all !important;
+}
+
+.btn.lightgrey {
+  background-color: rgb(250 250 250) !important;
+  border: 1px solid #DDD;
+}
+
+.btn:hover {
+  background-color: #2C2F3E !important;
+}
+
+.fs-14 {
+  font-size: 14px;
+}
+
+.fs-12 * {
+  font-size: 12px !important;
+}
+
+.highlighted {
+  background-color: var(--bs-primary-100);
 }

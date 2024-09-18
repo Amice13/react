@@ -21,7 +21,6 @@ export default defineConfig({
     }
   },
   // base: 'https://amice13.github.io/react/',
-  base: 'https://radiant.rodem.uz.ua',
   define: {
     'process.env': {
       IS_DEV: process.env.IS_DEV === 'TRUE',

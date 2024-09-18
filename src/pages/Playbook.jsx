@@ -8,12 +8,14 @@ import Table from 'react-bootstrap/Table'
 import Stack from 'react-bootstrap/Stack'
 import Accordion from 'react-bootstrap/Accordion'
 import PlaybookRow from '@/components/PlaybookRow'
+import CustomLoaderAside from '@/components/CustomLoaderAside'
+import CustomLoaderTable from '@/components/CustomLoaderTable'
 
 import { $api } from '@api'
 
 const headers = [
-  { title: 'Ref', value: 'primaryClausesNumber', sortable: true },
-  { title: 'Clause name', value: 'primaryClausesName', sortable: true },
+  { title: 'Ref clause', value: 'primaryClausesNumber', sortable: true },
+  { title: 'Topic', value: 'primaryClausesName', sortable: true },
   { title: 'Issue', value: 'description', sortable: true },
   { title: 'Action', value: 'action' },
   { title: 'Reason (internal)', value: 'reason' },
@@ -47,7 +49,7 @@ function Playbook () {
     fetchData()
   }, [id])
   
-  const playbookName = issues?.[0]?.playbooksName || 'Not found'
+  const playbookName = issues?.[0]?.playbooksName || 'Loading...'
   const parts = []
   const clausesKeys = []
   const clauses = []
@@ -85,8 +87,8 @@ function Playbook () {
 
     const regex = new RegExp(query, 'i')
     issuesToShow = issuesToShow.filter(issue => {
-      if (!issue[issuesDefinition.queryField]) return false
-      return issue[issuesDefinition.queryField].match(regex)
+      // if (!issue[issuesDefinition.queryField]) return false
+      return JSON.stringify(issue).match(regex)
     })
   }
 
@@ -105,18 +107,18 @@ function Playbook () {
         <Row className="py-2 px-3">
           <Col>
             <a
-              className="more-link cursor-pointer fw-600 text-gray-600 d-flex align-items-center"
+              className="more-link cursor-pointer text-black d-flex align-items-center"
               onClick={() => { navigate('/playbooks')}}
             >
-              <i className="bi bi-chevron-left me-2" style={{ fontSize: '28px'}}></i> View all Playbooks
+              <i className="bi bi-arrow-left me-2 font-weight-bold"></i> View all Playbooks
             </a>
           </Col>
         </Row>
-        <Row className="py-2 px-3">
+        <Row className="py-2 px-2 mt-3">
           <Col>
-            <Stack direction="horizontal" gap={3}>
+            <Stack className="bg-bubble-gray py-3 px-3" direction="horizontal" gap={3}>
               <div className="text-gray-800">
-                <h3 className="fw-600">Playbook: {playbookName}</h3>
+                <h4 className="fw-400">Playbook: {playbookName}</h4>
               </div>
               <div className="ms-auto">
                 <div className="input-group">
@@ -124,8 +126,8 @@ function Playbook () {
                     type="text"
                     defaultValue={setDefinition.query}
                     onChange={event => setDefinition({ query: event.target.value })}
-                    className="form-control border-end-0"
-                    placeholder="Search"
+                    className="form-control border-end-0 yellow-input bg-transparent"
+                    placeholder="Search..."
                     aria-label="from"
                     aria-describedby="from"
                   />
@@ -135,13 +137,14 @@ function Playbook () {
             </Stack>
           </Col>
         </Row>
-        <Row className="py-2 mx-3" style={{ borderTop: '1px solid #DDD' }}>
-          <Col className="col-2" style={{ borderRight: '1px solid #DDD' }}>
+        <Row className="py-2 mx-1">
+          <Col className="col-2">
+            <CustomLoaderAside style={{ display: playbookLoader ? 'block': 'none' }} />
             {parts.map(part => {
               return (
-                <div key={part}> 
-                  <div className="mb-3">
-                    <div className="fw-600">{part}</div>
+                <div key={part} style={{ display: !playbookLoader ? 'block': 'none' }}> 
+                  <div className="mb-1 px-2 py-1 bg-bubble-gray">
+                    <div className="fw-600 fs-14">{part}</div>
                   </div>
                   {clauses.filter(clause => clause.part === part).map(clause => {
                     let active = issuesDefinition.filters.primaryClausesName.includes(clause.primaryClausesName)
@@ -149,7 +152,7 @@ function Playbook () {
                     return (
                       <div
                         key={clause.name}
-                        className={`text-gray-800 rounded-2 ps-3 py-2 mb-1 playbook-link cursor-pointer ${active}`}
+                        className={`text-gray-800 ps-3 py-3 playbook-link cursor-pointer ${active}`}
                         onClick={() => {setDefinition({ filters: { primaryClausesName: [clause.primaryClausesName] }})}}
                       >
                         {clause.name}
@@ -161,16 +164,17 @@ function Playbook () {
             })}
           </Col>
           <Col className="col-10">
-            <Table responsive className="radiant-table vertical-align-baseline">
+            <CustomLoaderTable style={{ display: playbookLoader ? 'block': 'none' }} />
+            <Table responsive className="radiant-table vertical-align-baseline" style={{ display: !playbookLoader ? 'block': 'none' }}>
               <thead>
-                <tr className="text-no-wrap">
+                <tr className="text-no-wrap fs-14">
                   {headers.map(header => {
                     const isSorted = issuesDefinition.sort === header.value
                     const sortOrder = isSorted && issuesDefinition.sortOrder === 'desc' ? 'asc' : 'desc'
                     return (
                       <th key={header.value}>
                         <span
-                          className={`${header.sortable} ${header.sortable ? 'cursor-pointer' : ''}`}
+                          className={`${header.sortable ? 'cursor-pointer' : ''}`}
                           onClick={() => {
                             if (header.sortable) setDefinition({
                               sort: header.value,
@@ -191,7 +195,7 @@ function Playbook () {
               <tbody>
                 {issuesToShow.map(issue => {
                   return (
-                    <PlaybookRow key={issue.id} item={issue} />
+                    <PlaybookRow key={issue.id} item={issue} query={issuesDefinition.query} />
                   )
                 })}
               </tbody>

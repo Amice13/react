@@ -4,6 +4,7 @@ $body-font-family: 'Lato';
 $modal-width: 600px;
 $bs-modal-width: 600px;
 $modal-md: 600px;
+$bs-btn-hover-bg: #2C2F3E;
 
 $theme-colors: (
   'primary': #FEE101,
@@ -93,6 +94,8 @@ $theme-colors: (
   'gray-700': #4A5057,
   'gray-800': #343A40,
   'gray-900': #1F2326,
+
+  'bubble-gray': #F8FAFB,
 
   'black': #000000,
   'white': #FFFFFF

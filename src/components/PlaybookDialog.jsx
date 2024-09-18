@@ -1,7 +1,10 @@
 import { memo } from 'react'
 import Modal from 'react-bootstrap/Modal'
+import ParserDialog from '@/components/ParserDialog'
 
 function PlaybookDialog ({ item, open, onClose }) {
+
+
   return (
     <Modal
       show={open}

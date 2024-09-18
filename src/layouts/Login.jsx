@@ -15,26 +15,8 @@ const layout = ({ children }) => {
 
   return (
     <>
-    <div className="h-100 d-flex flex-column">
-      <div className="h-100">
-        <Container fluid className="h-100">
-          <Row className="h-100">
-            <Col>
-              <div className="h-100 d-flex flex-column pb-2">
-                <div className="tab-content align-content-center">
-                  <div
-                    role="tabpanel"
-                    id="controlled-tab-example-tabpane-/"
-                    aria-labelledby="controlled-tab-example-tab-/"
-                    className="fade tab-pane active show">
-                      {children}
-                  </div>
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+    <div className="h-100 d-flex flex-column bg-white justify-content-center">
+      {children}
     </div>
     </>
   )

@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Stack from 'react-bootstrap/Stack'
-import Logo from '@/assets/logo.png'
+import Logo from '@/assets/logo-square.png'
 import LayoutSiteTitle from '@/components/LayoutSiteTitle'
 import Card from 'react-bootstrap/Card'
 
@@ -42,23 +42,20 @@ function Login () {
       <Container fluid>
         <Row className="py-2 px-3">
           <Col>
-            <Card className="mx-auto text-center shadow" style={{ width: '32rem' }}>
+            <Card className="mx-auto text-center border-0" style={{ width: '32rem' }}>
               <Card.Body>
                 <Container fluid>
                   <Row className="h-100 d-flex mb-5">
                     <Col>
-                      <Stack direction="horizontal" gap={3}>
-                        <div className="logo-holder">
-                          <img src={Logo} className="logo" alt="Radiant logo" />
-                        </div>
-                        <LayoutSiteTitle />
-                      </Stack>
+                      <div className="mb-8">
+                        <img src={Logo} width="80" height="80" alt="Radiant logo" />
+                      </div>
                     </Col>
                   </Row>
-                  <Row className="mb-5">
+                  <Row className="mb-2">
                     <Col>
-                      <h3 className="mt-8"><strong>Welcome back</strong></h3>
-                      <h5 className="text-gray-700">Log in to your account</h5>
+                      <h4 className="mb-5">Radiant Escalations & Playbooks</h4>
+                      <p className="text-gray-700">Please sign in with your Google Account</p>
                     </Col>
                   </Row>
                   <Row>

@@ -41,7 +41,7 @@ function EscalationsControlPane () {
                 value={search}
                 onChange={(event) => { debounce(() => { dispatch(setSearch(event.target.value)) })() }}
                 type="text"
-                className="form-control"
+                className="form-control yellow-input"
                 placeholder="Search..."
                 aria-label="from"
                 aria-describedby="from"
@@ -49,7 +49,7 @@ function EscalationsControlPane () {
             </div>
           </div>
           { filters.status === 'Open' && <EscalationsAddButton /> }
-          { filters.status === 'Closed' && <PlaybookSelector width="183px" /> }
+          {/*{ filters.status === 'Closed' && <PlaybookSelector width="183px" /> }*/}
         </Stack>
       </Col>
     </Row>

@@ -14,7 +14,7 @@ import generateContacts from '@faker/contacts'
 import { $api } from '@api'
 import { setSort } from '@store/escalations'
 
-const headers = [
+const headersOpen = [
   { title: 'Escalation', value: 'shortDescription', sortable: true },
   { title: 'Matter name', value: 'matterName', sortable: true },
   { title: 'Inhouse legal advisor', value: 'contactsId' },
@@ -22,6 +22,17 @@ const headers = [
   { title: 'Urgent', value: 'urgent' },
   { title: 'Date raised', value: 'dateRaised', sortable: true },
   { title: 'Days open', value: 'daysOpen' },
+  { title: '', value: 'button' }
+]
+
+const headersClosed = [
+  { title: 'Escalation', value: 'shortDescription', sortable: true },
+  { title: 'Matter name', value: 'matterName', sortable: true },
+  { title: 'Inhouse legal advisor', value: 'contactsId' },
+  { title: 'Date raised', value: 'dateRaised', sortable: true },
+  { title: 'Date closed', value: 'dateClosed', sortable: true },
+  { title: 'Days open', value: 'daysOpen' },
+  { title: 'Outcome', value: 'outcome' },
   { title: '', value: 'button' }
 ]
 
@@ -74,14 +85,16 @@ function Escalations () {
     dispatch(setSort(sort))
   }
 
+  const headers = escalationsDefinition?.filters?.status === 'Open' ? headersOpen : headersClosed
+
   return (
     <>
       <Container fluid>
         <EscalationsControlPane />
         <Row>
           <Col>
-            <div className="mx-4">
-              <CustomLoaderTable />
+            <div className="mx-3">
+              <CustomLoaderTable className="mt-4" style={{ display: escalationsLoader ? 'block': 'none' }} />
               <Table responsive className="radiant-table mt-4" style={{ display: !escalationsLoader ? 'block': 'none' }}>
                 <thead>
                   <tr className="text-no-wrap">
@@ -117,7 +130,12 @@ function Escalations () {
                           const key = `${header.value}-${escalation.id}`
                           if (header.value === 'button') return (
                             <td key={key}>
-                              <Button onClick={() => { navigate(`/escalation/${escalation.id}`) }} variant="outline-black" size="sm">
+                              <Button
+                                onClick={() => { navigate(`/escalation/${escalation.id}`) }}
+                                className="lightgrey"
+                                variant="outline-black"
+                                size="sm"
+                              >
                                 <span className="text-no-wrap">View Details</span>
                               </Button>
                             </td>
@@ -130,18 +148,6 @@ function Escalations () {
                             return (
                               <td key={key} className="pe-4">
                                 { contact ? contact.name : '- Not assigned -' }
-{/*                                <select
-                                  defaultValue={escalation.contactsId}
-                                  className="form-select form-select-sm fw-600"
-                                  aria-label=".form-select-sm example"
-                                >
-                                  <option value={undefined}>- Not assigned -</option>
-                                  { contacts.map(contact => {
-                                    return (
-                                      <option key={contact.id} value={contact.id}>{contact.name}</option>
-                                    )
-                                  })}
-                                </select>*/}
                               </td>
                             )
                           }
@@ -162,6 +168,11 @@ function Escalations () {
                               { new Date(escalation.dateRaised).toLocaleDateString('en') }
                             </td>
                           )
+                          if (header.value === 'dateClosed') return (
+                            <td key={key}>
+                              { new Date(escalation.dateClosed).toLocaleDateString('en') }
+                            </td>
+                          )
                           if (header.value === 'daysOpen') return (
                             <td key={key}>
                               { parseInt((new Date() - new Date(escalation.dateRaised)) / (1000 * 60 * 60 * 24), 10) }
@@ -178,9 +189,6 @@ function Escalations () {
                   })}
                 </tbody>
               </Table>
-              <div className="text-center" style={{ display: escalationsLoader ? 'block': 'none' }}>
-                <span className="loader"></span>
-              </div>
             </div>
           </Col>
         </Row>

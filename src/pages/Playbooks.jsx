@@ -8,11 +8,12 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
 import CustomSelectorBox from '@/components/CustomSelectorBox'
+import CustomLoaderTable from '@/components/CustomLoaderTable'
 import { $api } from '@api'
 import { setSort } from '@store/playbooks'
 
 const headers = [
-  { title: 'Playbook name', value: 'name', sortable: true },
+  { title: 'Playbook name', value: 'name', sortable: true, width: '30%' },
   { title: 'Supplier or customer (paper)', value: 'paper' },
   { title: 'Last updated', value: 'lastUpdate' },
   { title: 'Open escalations', value: 'openEscalations' },
@@ -20,7 +21,7 @@ const headers = [
   { title: 'Canges last 6m', value: 'changes', sortable: true },
   { title: 'Date of last approval', value: 'lastApproval' },
   { title: '', value: 'button' },
-  { title: '', value: 'file' }
+  // { title: '', value: 'file' }
 ]
 
 function Playbooks () {
@@ -54,31 +55,34 @@ function Playbooks () {
   return (
     <>
       <Container fluid>
-        <Row className="pt-4">
+        <Row>
           <Col>
-            <div className="scorecard">
-              <Table responsive className="radiant-table mt-4">
+            <div className="mx-3">
+              <CustomLoaderTable className="mt-4" style={{ display: playbooksLoader ? 'block': 'none' }} />
+              <Table responsive className="radiant-table mt-4" style={{ display: !playbooksLoader ? 'block': 'none' }}>
                 <thead>
-                  <tr className="text-no-wrap">
+                  <tr>
                     {headers.map(header => {
                       const isSorted = playbooksDefinition.sort === header.value
                       const sortOrder = isSorted && playbooksDefinition.sortOrder === 'desc' ? 'asc' : 'desc'
                       return (
-                        <th key={header.value}>
-                          <span
-                            className={`${header.sortable} ${header.sortable ? 'cursor-pointer' : ''}`}
-                            onClick={() => {
-                              if (header.sortable) sortTable({
-                                sort: header.value,
-                                sortOrder
-                              })
-                            }}
-                          >
-                            {header.title}
-                          </span>
-                          {header.sortable && <i
-                            className={`${isSorted ? 'text-black' : ''} bi table-header-icon ${sortOrder === 'desc' ? 'bi-arrow-down-short' : 'bi-arrow-up-short'} ps-2`}
-                          />}
+                        <th key={header.value} width={header.width}>
+                          <div className="d-flex">
+                            <span
+                              className={`${header.sortable} ${header.sortable ? 'cursor-pointer' : ''}`}
+                              onClick={() => {
+                                if (header.sortable) sortTable({
+                                  sort: header.value,
+                                  sortOrder
+                                })
+                              }}
+                            >
+                              {header.title}
+                            </span>
+                            {header.sortable && <i
+                              className={`${isSorted ? 'text-black' : ''} bi table-header-icon ${sortOrder === 'desc' ? 'bi-arrow-down-short' : 'bi-arrow-up-short'} ps-2`}
+                            />}
+                          </div>
                         </th>
                       )
                     })}
@@ -94,6 +98,7 @@ function Playbooks () {
                             <td key={key}>
                               <Button
                                 onClick={() => { navigate(`/playbook/${playbook.id}`) }}
+                                className="lightgrey"
                                 variant="outline-black"
                                 size="sm"
                               >
@@ -101,11 +106,11 @@ function Playbooks () {
                               </Button>
                             </td>
                           )
-                          if (header.value === 'file') return (
-                            <td key={key}>
-                              <i className="bi bi-file-pdf-fill text-gray-600" style={{ fontSize: '24px'}}></i>
-                            </td>
-                          )
+                          // if (header.value === 'file') return (
+                          //   <td key={key}>
+                          //     <i className="bi bi-file-pdf-fill text-gray-600" style={{ fontSize: '24px'}}></i>
+                          //   </td>
+                          // )
                           if (header.value === 'lastUpdate') return (
                             <td key={key}>
                               { new Date(playbook.lastUpdate).toLocaleDateString('en') }
