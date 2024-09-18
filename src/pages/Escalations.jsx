@@ -8,6 +8,7 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
 import EscalationsControlPane from '@/components/EscalationsControlPane'
+import CustomLoaderTable from '@/components/CustomLoaderTable'
 import generateEscalations from '@faker/escalations'
 import generateContacts from '@faker/contacts'
 import { $api } from '@api'
@@ -77,9 +78,10 @@ function Escalations () {
     <>
       <Container fluid>
         <EscalationsControlPane />
-        <Row className="pt-4">
+        <Row>
           <Col>
-            <div className="scorecard">
+            <div className="mx-4">
+              <CustomLoaderTable />
               <Table responsive className="radiant-table mt-4" style={{ display: !escalationsLoader ? 'block': 'none' }}>
                 <thead>
                   <tr className="text-no-wrap">

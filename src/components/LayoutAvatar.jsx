@@ -53,7 +53,7 @@ function LayoutAvatar ({ name, href }) {
           className="rounded-circle main-avatar cursor-pointer bg-primary-900"
           onClick={() => setDropdown(true)}
         >
-          {user.username.match(/(?<=^| )./g).slice(0, 2).join('')}
+          {user.username && user.username.match(/(?<=^| )./g).slice(0, 2).join('')}
         </div>
 {/*        <Image
           onClick={() => setDropdown(true)}
