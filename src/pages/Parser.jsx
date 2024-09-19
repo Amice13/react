@@ -131,6 +131,7 @@ function Parser () {
       let i = 0
       let headers = []
       let primaryClause
+      let clauseRef
       let results = []
       for (let row of tableRows) {
         i++
@@ -138,6 +139,11 @@ function Parser () {
         const cellValues = tableCells.map(cell => getTextFromCell(cell).trim())
         if (i === 1) {
           headers = cellValues.map(el => dict[el])
+          continue
+        }
+        if (i === 2) {
+          clauseRef = cellValues[0].replace(/\*/g, '')
+          primaryClause = cellValues[1].replace(/\*/g, '')
           continue
         }
         if (cellValues.filter(Boolean).length === 1) {
